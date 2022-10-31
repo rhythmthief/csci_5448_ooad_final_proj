@@ -141,18 +141,80 @@
 
 \subsection*{Overview (D)} \phantom{}
 
-Our project is a small Unity Engine video game based on Sid Meier's Civilization. Our version of the game will be based on a square game board as opposed to Civilization's hexagonal board. There will be one human player and several AIs. Each player will have a starting city that can generate one of three rock-paper-scissors-like unit types every 2 turns, and control their movement in the game board. Units and cities have individual health bars and attack strengths, depletion of the health bar leads to removal of the respective entity from the game. A player loses when their city is removed from the game, and the last remaining player wins.
+Our project is a small Unity Engine video game based on Sid Meier's Civilization. Our version of the game will be based on a square game board as opposed to Civilization's hexagonal board. There will be one human player and several AIs. Each player will have a starting city that can generate one of three rock-paper-scissors-like unit types every 3 turns, and control their movement in the game board. Units and cities have individual health bars and attack strengths, depletion of the health bar leads to removal of the respective entity from the game. A player loses when their city is removed from the game, and the last remaining player wins.
 
 \subsection*{Project Requirements (D)} \phantom{}
 \begin{itemize}
-    \item Hardware Requirements
+    \item System Requirements
     \begin{itemize}
-        \item The game needs to be fully portable across two major desktop operating systems: Windows (10+) and Linux (kernel 5.15+)
+        \item The game needs to be fully portable across two major desktop operating systems: Windows (10+) and Linux (kernel 5.15+).
+        \item Hardware requirements need to be modest, not exceeding the capabilities of entry-level consumer chips.
     \end{itemize}
     \item Game Board
+    \begin{itemize}
+        \item The game board needs to be a square grid of a size that facilitates good gameplay for 2-3 players, likely between $20 \times 20$ and $30 \times 30$.
+        \item The game board needs to be able to fit the entire game screen as we do not intend to support camera controls.
+        \item The game board needs to be interactive to the human user: they will be able to use their mouse to select a unit, get a prompt for which cells the unit may move into, and move the unit by selecting an available cell.
+        \item No two units should be able to share the same cell in the game board.
+    \end{itemize}
     \item Gameplay
+    \begin{itemize}
+        \item Players take turns sequentially. Each turn, the player can use all of their units once, choosing to either move or attack, and produce a new unit at the City. The player needs to be able to skip the turn if they are happy with their decisions and do not to finish the turn.
+        \item By default, each player has one starting city that can create a unit every 3 turns. The starting city has its own attack power, meaning that units that siege it take damage. A city has $500$ base HP.
+        \item The human player must be able to select one of three base civilization types that determine gameplay changes:
+        \begin{itemize}
+            \item Conquerors
+            \begin{itemize}
+                \item Damage dealt to enemy cities is increased by $\times 1.5$.
+                \item Civilization's own city has $25\%$ less health.
+            \end{itemize}
+            \item Barbarians
+            \begin{itemize}
+                \item City can produce units every $2$ turns instead of $3$.
+                \item Every unit has $30\%$ less health.
+            \end{itemize}
+            \item Defenders
+            \begin{itemize}
+                \item City has $\times 2$ health and attack power.
+                \item City can produce units every $4$ turns instead of $3$.
+            \end{itemize}
+        \end{itemize}
+        \item There will be $3$ unit types available to every player. To attack, a unit always needs to be in a cell adjacent to their target. Every unit has the base attack damage of $30$ and a total of $100$ HP.
+        \begin{itemize}
+            \item Melee
+            \begin{itemize}
+                \item Deals $\times 1.5$ damage to Ranged units.
+                \item Deals $\times 0.5$ damage to Airborne units.
+            \end{itemize}
+            \item Ranged
+            \begin{itemize}
+                \item Deals $\times 1.5$ damage to Airborne units.
+                \item Deals $\times 0.5$ damage to Melee units.
+            \end{itemize}
+            \item Airborne
+            \begin{itemize}
+                \item Deals $\times 1.5$ damage to Melee units.
+                \item Deals $\times 0.5$ damage to Ranged units.
+            \end{itemize}
+        \end{itemize}
+
+        \item When a city or a unit lose all their HP, they are removed from the game. If a city is removed, the player who owns the city instantly loses and all their units are removed from the game.
+    \end{itemize}
     \item AI
+    \begin{itemize}
+        \item The game needs to have a basic AI for the human player to play against. 
+        \item The AI will follow simple heuristics:
+        \begin{itemize}
+            \item Keep unit type split close to $1:1:1$ when producing new units.
+            \item For every available unit, take the greedy action: if there is a nearby enemy unit or a city, attack them, if not, move towards the closest enemy city.
+        \end{itemize}
+    \end{itemize}
     \item UI
+    \begin{itemize}
+        \item The UI needs to initially display a civilization type choice to the player, along with respective bonuses.
+        \item During the actual gameplay the UI needs to communicate to the player when they may produce new units.
+        \item The UI needs to tell the player what units may be selected, and what their available actions are after selection.
+    \end{itemize}
 \end{itemize}
 
 
