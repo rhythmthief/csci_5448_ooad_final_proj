@@ -139,11 +139,12 @@
     \end{tabularx}
 \end{table}
 
-\subsection*{Overview (D)} \phantom{}
+\subsection*{Overview} \phantom{}
 
 Our project is a small Unity Engine video game based on Sid Meier's Civilization. Our version of the game will be based on a square game board as opposed to Civilization's hexagonal board. There will be one human player and several AIs. Each player will have a starting city that can generate one of three rock-paper-scissors-like unit types every 3 turns, and control their movement in the game board. Units and cities have individual health bars and attack strengths, depletion of the health bar leads to removal of the respective entity from the game. A player loses when their city is removed from the game, and the last remaining player wins.
 
-\subsection*{Project Requirements (D)} \phantom{}
+\newpage
+\subsection*{Project Requirements} \phantom{}
 \begin{itemize}
     \item System Requirements
     \begin{itemize}
@@ -179,6 +180,7 @@ Our project is a small Unity Engine video game based on Sid Meier's Civilization
                 \item City can produce units every $4$ turns instead of $3$.
             \end{itemize}
         \end{itemize}
+
         \item There will be $3$ unit types available to every player. To attack, a unit always needs to be in a cell adjacent to their target. Every unit has the base attack damage of $30$ and a total of $100$ HP.
         \begin{itemize}
             \item Melee
@@ -197,8 +199,9 @@ Our project is a small Unity Engine video game based on Sid Meier's Civilization
                 \item Deals $\times 0.5$ damage to Ranged units.
             \end{itemize}
         \end{itemize}
-
-        \item When a city or a unit lose all their HP, they are removed from the game. If a city is removed, the player who owns the city instantly loses and all their units are removed from the game.
+        \item When a city or a unit lose all their HP, they are removed from the game. If a city is removed, the player who owns the city instantly loses and all their units are removed from the game. If the human player loses, the game is over.
+        \item Total damage done by units of each player needs to be tracked and displayed at the end of the game.
+        \item The player may choose to quit the game early, at which point they automatically lose and the game concludes.
     \end{itemize}
     \item AI
     \begin{itemize}
@@ -214,26 +217,39 @@ Our project is a small Unity Engine video game based on Sid Meier's Civilization
         \item The UI needs to initially display a civilization type choice to the player, along with respective bonuses.
         \item During the actual gameplay the UI needs to communicate to the player when they may produce new units.
         \item The UI needs to tell the player what units may be selected, and what their available actions are after selection.
+        \item After the game is over, the human player will be presented with a scoreboard showing whether they won or lost, and how much damage their units have done in total.
+        \item The player needs to have an button to quit the running game.
     \end{itemize}
 \end{itemize}
 
+\newpage
+\subsection*{Users and Tasks: Use Cases} \phantom{}
+The system will have a single human user. See Figure \ref{fig:use_cases} for the Use Case diagram.
+\begin{figure}[h!]
+    \begin{center}
+    \includegraphics[height=160mm]{../diagrams/use_cases/use_cases.png} \\
+    \caption{Use case diagram.}
+    \label{fig:use_cases}
+    \end{center}
+\end{figure}
 
-% The system will allow a human player to engage with the game board with a user interface
-
-\subsection*{Users and Tasks: Use Cases (D)} \phantom{}
+\newpage
 \subsection*{UML Activity or State Diagram (N)} \phantom{}
 \subsection*{Architecture Diagram (N)} \phantom{}
-\subsection*{Data Storage (D)} \phantom{}
+\subsection*{Data Storage} \phantom{}
+
+The game will keep track of its state in memory. After the an ending condition is reached, the game will save some statistics to a text file:
+\begin{itemize}
+    \item Turns taken to finish the game.
+    \item Endgame condition for the human player.
+    \item Total damage done by each player's units.
+    \item How many units of each type were created throughout the game by each player.
+\end{itemize}
+
 \subsection*{UI Mockups / Sketches (N)} \phantom{}
 \subsection*{UML Class Diagram \& Pattern Use (D)} \phantom{}
 \subsection*{User Interactions / UML Sequence Diagrams (N)} \phantom{}
 
-
-
-
-% Our project is a small video game based on Sid Meier's Civilization game series, where civilizations duke it out on a hex board. The player will be greeted with a selection screen where they choose a civilization type which determines their in-game buffs. The player is then given a city where they can produce warriors of three different types which follow the rock-paper-scissors interaction design. There will be several other civilization players controlled by the AI. We intent to keep the visuals tight and minimalistic. Our goal in terms of the visual design is to fit the entire game board composed of a hex grid onto a single screen. 
-    
-% Each turn, every warrior gets to move a certain distance and fight either enemy warriors or enemy cities in adjacent cells. No two warriors can be in the same grid cell, and warriors cannot be in the cities. Both cities and warriors will have their own health points, which, on depletion, lead to removal of respective entities from the game. Each city will be able to produce a single warrior unit on an adjacent cell every $2-4$ turns. When a warrior attacks another warrior or a city, they deal a set amount of damage determined by their combat characteristics, and likewise take damage from their enemy. The game ends when only one city remains in the game, at which point the player who controls it wins.
 
 %\codetrue % Uncomment to enable code insertion
 \ifcode
