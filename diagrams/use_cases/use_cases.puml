@@ -31,6 +31,10 @@ SelectCiv --->"<<includes>>" (Turn)
 (Produce) <---"<<extends>>" (PA)
 
 
+note left of (Turn)
+User keeps taking turns
+end note
+
 ' for a Piazza question
 ' (1) as (Action1)
 ' (2) as (Action2)
