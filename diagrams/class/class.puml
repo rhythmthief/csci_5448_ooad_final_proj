@@ -10,6 +10,10 @@ package com.civ.board {
     }
 
     abstract class Unit {
+        damage : Int
+        hp : Int
+        mb : MoveBehavior
+        cm : CombatBehavior
         attack(target: Unit)
     }
 
@@ -127,7 +131,7 @@ MobileBehavior ..|> MoveBehavior
 StationaryBehavior ..|> MoveBehavior
 
 GameBoard --> Cell
-Cell --|> Unit
+Cell --> Unit
 Unit --> CombatBehavior
 Unit --> MoveBehavior
 
@@ -137,6 +141,7 @@ UnitFactory --|> Factory
 CellFactory --> Cell
 UnitFactory --> com.civ.board
 GameBoardFactory --> GameBoard
+GameBoardFactory --|> Factory
 
 Main --> Run
 
@@ -146,7 +151,7 @@ Run --> GameBoard
 
 AITurn --> AI
 
-HumanTurn --> ReceiveInput
+Client --> ReceiveInput
 HumanTurn --> Client
 
 
@@ -160,5 +165,8 @@ Client --> Invoker
 AI --> Unit
 Client --> Unit
 SetUIState --> UnityUISystem
+
+UnitSelectCommand --> SetUIState
+UnitDeselectCommand --> SetUIState
 
 @enduml
