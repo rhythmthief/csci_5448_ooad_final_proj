@@ -1,0 +1,164 @@
+@startuml
+
+skinparam linetype ortho
+hide empty members
+
+package com.civ.board {
+    class Cell {
+        occupant : Unit    
+        adjacent : ArrayList<Cell>
+    }
+
+    abstract class Unit {
+        attack(target: Unit)
+    }
+
+    class City {}
+
+    class Melee {}
+    class Ranged {}
+    class Airborne {}
+    class GameBoard{
+        cells : Cell[][]
+        cities : Unit[]
+        fighters : Unit[]
+    }
+}
+
+package com.civ.factory {
+    abstract Factory {}
+    class CellFactory {
+
+    }
+
+    class UnitFactory {
+
+    }
+
+    class GameBoardFactory {}
+
+
+    note as N3
+    Factory pattern
+    end note
+}
+
+package com.civ.behaviors {
+    interface CombatBehavior {}
+
+    interface MoveBehavior {}
+
+    class MeleeBehavior {}
+    class RangedBehavior {}
+    class AirborneBehavior {}
+    class MobileBehavior {}
+    class StationaryBehavior {}
+
+    note as N2
+    Assigned via strategy
+    end note
+}
+
+package com.civ.game {
+    class Run {
+        -gameBoard : GameBoard
+    }
+
+    class Main {}
+
+    class HumanTurn{
+        inputLoop()
+    }
+
+    class AITurn {
+
+    }
+}
+
+package com.civ.ai {
+    class AI {
+        unitDecision()
+        spawnDecision()
+    }
+}
+
+package com.civ.command {
+    class Client {
+
+    }
+
+    interface Command {
+        execute()
+    }
+
+    class UnitSelectCommand {}
+    class UnitDeselectCommand {}
+    class UnitAttackCommand {}
+    class CitySpawnCommand {}
+
+    class Invoker {
+        SetCommand()
+    }
+
+    note as N1
+    Select/Deselect toggle UI states
+    end note
+}
+
+package com.civ.UI {
+    class ReceiveInput {}
+    class SetUIState {}
+    class UnityUISystem {}
+
+    note bottom of UnityUISystem
+    Unity's UI functionality
+    end note
+}
+
+City --|> Unit
+Melee --|> Unit
+Ranged --|> Unit
+Airborne --|> Unit
+
+MeleeBehavior ..|> CombatBehavior
+RangedBehavior ..|> CombatBehavior
+AirborneBehavior ..|> CombatBehavior
+MobileBehavior ..|> MoveBehavior
+StationaryBehavior ..|> MoveBehavior
+
+GameBoard --> Cell
+Cell --|> Unit
+Unit --> CombatBehavior
+Unit --> MoveBehavior
+
+CellFactory --|> Factory
+UnitFactory --|> Factory
+
+CellFactory --> Cell
+UnitFactory --> com.civ.board
+GameBoardFactory --> GameBoard
+
+Main --> Run
+
+Run --> HumanTurn
+Run --> AITurn
+Run --> GameBoard
+
+AITurn --> AI
+
+HumanTurn --> ReceiveInput
+HumanTurn --> Client
+
+
+UnitSelectCommand ..|> Command
+UnitDeselectCommand ..|> Command
+UnitAttackCommand ..|> Command
+CitySpawnCommand ..|> Command
+
+Invoker --> Command
+Client --> Invoker
+AI --> Unit
+Client --> Unit
+SetUIState --> UnityUISystem
+
+@enduml
