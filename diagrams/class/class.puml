@@ -119,6 +119,31 @@ package com.civ.UI {
     end note
 }
 
+package com.civ.observer {
+    abstract class Observer {
+    update (event : Event)
+    }
+
+    abstract class Subject {
+        observers : ArrayList<Observer>
+        registerObserver(o : Observer)
+        deregisterObserver(o : Observer)
+        notifyObservers(event : Event)
+    }
+
+    class ScoreTracker {
+        update (event : Event)
+    }
+
+    class Event {
+        type: String
+        m1 : String
+        m2 : String
+    }
+}
+
+Unit --|> Subject
+
 City --|> Unit
 Melee --|> Unit
 Ranged --|> Unit
@@ -168,5 +193,10 @@ SetUIState --> UnityUISystem
 
 UnitSelectCommand --> SetUIState
 UnitDeselectCommand --> SetUIState
+
+Subject --> Event
+Observer --> Event
+
+ScoreTracker --|> Observer
 
 @enduml
