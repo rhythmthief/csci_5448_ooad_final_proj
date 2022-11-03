@@ -220,22 +220,24 @@ Our project is a small Unity Engine video game based on Sid Meier's Civilization
         \item After the game is over, the human player will be presented with a scoreboard showing whether they won or lost, and how much damage their units have done in total.
         \item The player needs to have an button to quit the running game.
     \end{itemize}
+    \item Post-game statistics
+    \begin{itemize}
+        \item After the end of the game, the user will see damage statistics for each player throughout the game in the form of a line graph.
+    \end{itemize}
 \end{itemize}
 
-\newpage
 \subsection*{Users and Tasks: Use Cases} \phantom{}
-The system will have a single human user. See Figure \ref{fig:use_cases} for the Use Case diagram.
-\begin{figure}[h!]
-    \begin{center}
-    \includegraphics[height=160mm]{../diagrams/use_cases/use_cases.png} \\
-    \caption{Use case diagram.}
-    \label{fig:use_cases}
-    \end{center}
-\end{figure}
 
-\newpage
-\subsection*{UML Activity or State Diagram (N)} \phantom{}
-\subsection*{Architecture Diagram (N)} \phantom{}
+The system will have a single human user. See \hyperref[sec:appendixe]{Appendix E: Use Cases} for our use cases diagram.
+
+\subsection*{UML Activity Diagram} \phantom{}
+
+See \hyperref[sec:appendixc]{Appendix C: Activity Diagram} for the activity diagram of the project.
+
+\subsection*{Architecture Diagram} \phantom{}
+
+See \hyperref[sec:appendixd]{Appendix D: Architecture Diagram} for the architecture diagram of the project.
+
 \subsection*{Data Storage} \phantom{}
 
 The game will keep track of its state in memory. After the an ending condition is reached, the game will save some statistics to a text file:
@@ -246,7 +248,9 @@ The game will keep track of its state in memory. After the an ending condition i
     \item How many units of each type were created throughout the game by each player.
 \end{itemize}
 
-\subsection*{UI Mockups / Sketches (N)} \phantom{}
+\subsection*{UI Mockups / Sketches} \phantom{}
+
+See \hyperref[sec:appendixb]{Appendix B: UI Sketches} for our UI sketches, mind that there are two pages.
 \subsection*{UML Class Diagram \& Pattern Use} \phantom{}
 
 See \hyperref[sec:appendixa]{Appendix A: Class Diagram} for the class diagram of the project.
@@ -256,22 +260,50 @@ See \hyperref[sec:appendixa]{Appendix A: Class Diagram} for the class diagram of
 
 % create a new page with special dimensions, include diagram
 \newpage
-\paperwidth=45in
-\paperheight=8in
+\paperwidth=20in
+\paperheight=10in
 \pdfpagewidth=\paperwidth
 \pdfpageheight=\paperheight
 
-\includepdf[scale=1, offset=7mm 0mm, pagecommand={\section*{Appendix A: Class Diagram}\pagestyle{fancy}}\label{sec:appendixa}]{../diagrams/class/class.png}
+\includepdf[scale=0.9, offset=0mm 0mm, pagecommand={\section*{Appendix A: Class Diagram}\pagestyle{fancy}}\label{sec:appendixa}]{../diagrams/class/class.png}
 
+% create a new page with special dimensions, include diagram
+\newpage
+\paperwidth=11in
+\paperheight=11in
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
 
-% % create a new page with special dimensions, include diagram
-% \newpage
-% \paperwidth=45in
-% \paperheight=8in
-% \pdfpagewidth=\paperwidth
-% \pdfpageheight=\paperheight
+\includepdf[scale=1, offset=0mm 0mm, pagecommand={\section*{Appendix B: UI Sketches}\pagestyle{fancy}}\label{sec:appendixb}]{../diagrams/ui_sketches/PXL_20221102_214317894.jpg}
 
-% \includepdf[scale=1, offset=7mm 0mm, pagecommand={\section*{Appendix B: New Class Diagram for RotLA}\pagestyle{fancy}}\label{sec:appendixb}]{../uml/class_diagram/game_diagram.png}
+\includepdf[scale=1, offset=0mm 0mm, pagecommand={\pagestyle{fancy}}]{../diagrams/ui_sketches/PXL_20221102_223452233.jpg}
+
+% create a new page with special dimensions, include diagram
+\newpage
+\paperwidth=11in
+\paperheight=43in
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+
+\includepdf[scale=1, offset=0mm 0mm, pagecommand={\section*{Appendix C: Activity Diagram}\pagestyle{fancy}}\label{sec:appendixc}]{../diagrams/activity/Project5_ActivityDiagram.drawio.png}
+
+% create a new page with special dimensions, include diagram
+\newpage
+\paperwidth=8.5in
+\paperheight=11in
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+
+\includepdf[scale=0.5, offset=0mm 0mm, pagecommand={\section*{Appendix D: Architecture Diagram}\pagestyle{fancy}}\label{sec:appendixd}]{../diagrams/architecture/architectureDiagram.drawio.png}
+
+% create a new page with special dimensions, include diagram
+\newpage
+\paperwidth=15in
+\paperheight=16in
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+
+\includepdf[scale=1, offset=0mm 0mm, pagecommand={\section*{Appendix E: Use Cases}\pagestyle{fancy}}\label{sec:appendixe}]{../diagrams/use_cases/use_cases.png}
 
 
 
