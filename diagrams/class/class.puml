@@ -87,6 +87,9 @@ package com.civ.ai {
 }
 
 package com.civ.command {
+    note as NC
+    Command pattern
+    end note
     class Client {
 
     }
@@ -120,6 +123,9 @@ package com.civ.UI {
 }
 
 package com.civ.observer {
+    note as NO
+    Observer pattern
+    end note
     abstract class Observer {
     update (event : Event)
     }
