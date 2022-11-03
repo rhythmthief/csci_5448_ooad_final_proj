@@ -222,20 +222,17 @@ Our project is a small Unity Engine video game based on Sid Meier's Civilization
     \end{itemize}
     \item Post-game statistics
     \begin{itemize}
-        \item After the end of the game, the user will see damage statistics for each player throughout the game in the form of a line graph.
+        \item After the end of the game, the user will see damage and created units statistics for each player throughout the game in the form of a line graph.
     \end{itemize}
 \end{itemize}
 
 \subsection*{Users and Tasks: Use Cases} \phantom{}
-
 The system will have a single human user. See \hyperref[sec:appendixe]{Appendix E: Use Cases} for our use cases diagram.
 
 \subsection*{UML Activity Diagram} \phantom{}
-
 See \hyperref[sec:appendixc]{Appendix C: Activity Diagram} for the activity diagram of the project.
 
 \subsection*{Architecture Diagram} \phantom{}
-
 See \hyperref[sec:appendixd]{Appendix D: Architecture Diagram} for the architecture diagram of the project.
 
 \subsection*{Data Storage} \phantom{}
@@ -249,13 +246,12 @@ The game will keep track of its state in memory. After the an ending condition i
 \end{itemize}
 
 \subsection*{UI Mockups / Sketches} \phantom{}
-
 See \hyperref[sec:appendixb]{Appendix B: UI Sketches} for our UI sketches, mind that there are two pages.
+
+\subsection*{UML Sequence Diagrams} \phantom{}
+See \hyperref[sec:appendixf]{Appendix F: User Interaction Sequence Diagrams} for our sequence diagrams.
 \subsection*{UML Class Diagram \& Pattern Use} \phantom{}
-
 See \hyperref[sec:appendixa]{Appendix A: Class Diagram} for the class diagram of the project.
-
-\subsection*{User Interactions / UML Sequence Diagrams (N)} \phantom{}
 
 
 % create a new page with special dimensions, include diagram
@@ -285,7 +281,7 @@ See \hyperref[sec:appendixa]{Appendix A: Class Diagram} for the class diagram of
 \pdfpagewidth=\paperwidth
 \pdfpageheight=\paperheight
 
-\includepdf[scale=1, offset=0mm 0mm, pagecommand={\section*{Appendix C: Activity Diagram}\pagestyle{fancy}}\label{sec:appendixc}]{../diagrams/activity/Project5_ActivityDiagram.drawio.png}
+\includepdf[scale=0.95, offset=0mm 0mm, pagecommand={\section*{Appendix C: Activity Diagram}\pagestyle{fancy}}\label{sec:appendixc}]{../diagrams/activity/Project5_ActivityDiagram.drawio.png}
 
 % create a new page with special dimensions, include diagram
 \newpage
@@ -303,7 +299,16 @@ See \hyperref[sec:appendixa]{Appendix A: Class Diagram} for the class diagram of
 \pdfpagewidth=\paperwidth
 \pdfpageheight=\paperheight
 
-\includepdf[scale=1, offset=0mm 0mm, pagecommand={\section*{Appendix E: Use Cases}\pagestyle{fancy}}\label{sec:appendixe}]{../diagrams/use_cases/use_cases.png}
+\includepdf[scale=0.9, offset=0mm 0mm, pagecommand={\section*{Appendix E: Use Cases}\pagestyle{fancy}}\label{sec:appendixe}]{../diagrams/use_cases/use_cases.png}
+
+% create a new page with special dimensions, include diagram
+\newpage
+\paperwidth=15in
+\paperheight=20in
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+
+\includepdf[scale=0.9, offset=0mm 0mm, pagecommand={\section*{Appendix F: User Interaction Sequence Diagrams}\pagestyle{fancy}}\label{sec:appendixf}]{../diagrams/user_sequence/UserSequence.drawio.png}
 
 
 
