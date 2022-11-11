@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CombatCity : CombatBehavior
 {
-    public void attack(Unit self, Unit target)
+    public CombatCity()
     {
+        strongAgainst = "";
+        weakAgainst = "";
     }
 }

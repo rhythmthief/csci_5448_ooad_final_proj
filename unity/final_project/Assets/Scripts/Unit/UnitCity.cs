@@ -6,8 +6,8 @@ public class UnitCity : Unit
 {
     public UnitCity() 
     {
-        damage = 0;
-        hp = 0;
+        damage = 20;
+        hp = 500;
         mb = new MoveStationary();
     }
 }

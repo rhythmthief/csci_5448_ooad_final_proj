@@ -10,26 +10,51 @@ public abstract class Unit
 
     protected MoveBehavior mb;
     protected CombatBehavior cb;
+    protected Civilization civ;
 
-    void attack(Unit target) {
+    protected string type;
+
+    void attack(Unit target)
+    {
         cb.attack(this, target);
     }
 
-    public void reduceHP(int reduction) 
+    public void reduceHP(int reduction)
     {
         hp -= reduction;
         checkAlive();
     }
 
-    void checkAlive() 
+    void checkAlive()
     {
-        if (hp < 1) {
+        if (hp < 1)
+        {
             alive = false;
         }
     }
 
-    public int getDamage() 
+    public int getDamage()
     {
         return damage;
+    }
+
+    public Civilization getCiv()
+    {
+        return civ;
+    }
+
+    public string getUnitType()
+    {
+        return type;
+    }
+
+    public void setHP(int hp_)
+    {
+        hp = hp_;
+    }
+
+    public void setDamage(int damage_)
+    {
+        damage = damage_;
     }
 }
