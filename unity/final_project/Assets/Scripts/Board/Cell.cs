@@ -5,6 +5,8 @@ using UnityEngine;
 public class Cell
 {
     int[] coords; //x-y coordinates in the game board
-    Unit occupant;
+    Unit unit;
     List<Cell> adjacent;
+
+    
 }

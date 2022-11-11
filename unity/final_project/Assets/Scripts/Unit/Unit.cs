@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Unit
+public abstract class Unit : Subject
 {
     protected int damage = 30;
     protected int hp = 100;
