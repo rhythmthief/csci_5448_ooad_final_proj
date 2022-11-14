@@ -8,16 +8,14 @@ public abstract class Unit : Subject
     protected int hp = 100;
     protected bool alive = true;
 
+    protected Cell cell; // location of the unit
+
     protected MoveBehavior mb;
     protected CombatBehavior cb;
     protected Civilization civ;
 
     protected string type;
 
-    void attack(Unit target)
-    {
-        cb.attack(this, target);
-    }
 
     public void reduceHP(int reduction)
     {
@@ -25,36 +23,12 @@ public abstract class Unit : Subject
         checkAlive();
     }
 
-    void checkAlive()
-    {
-        if (hp < 1)
-        {
-            alive = false;
-        }
-    }
-
-    public int getDamage()
-    {
-        return damage;
-    }
-
-    public Civilization getCiv()
-    {
-        return civ;
-    }
-
-    public string getUnitType()
-    {
-        return type;
-    }
-
-    public void setHP(int hp_)
-    {
-        hp = hp_;
-    }
-
-    public void setDamage(int damage_)
-    {
-        damage = damage_;
-    }
+    void attack(Unit target) => cb.attack(this, target);
+    void checkAlive() => alive = hp < 1 ? false : true; 
+    public int getDamage() => damage;
+    public Civilization getCiv() => civ;
+    public string getUnitType() => type;
+    public void setHP(int hp_) => hp = hp_;
+    public void setDamage(int damage_) => damage = damage_;
+    public Cell getCell() => cell;
 }

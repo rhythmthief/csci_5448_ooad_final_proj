@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class MoveMobile : MoveBehavior
 {
-    public void move(Cell cell)
+    public void move(Unit self, Cell cell_)
     {
-        // check if cell is occupied
+        // ensure that the cell is not occupied
+        if (cell_.isFree())
+        {
+            cell_.setUnit(self);
+            self.notifyObservers(new Event(0, cell_.getCoordinates(), new string[1] { "unit" }));
+        }
     }
 }
