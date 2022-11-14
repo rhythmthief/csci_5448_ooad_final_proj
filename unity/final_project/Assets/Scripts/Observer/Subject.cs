@@ -13,4 +13,12 @@ public abstract class Subject
             o.update(e);
         }
     }
+
+    void registerObservers(Observer o) {
+        observers.Add(o);
+    }
+
+    void deregisterObservers(Observer o) {
+        observers.Remove(o);
+    }
 }

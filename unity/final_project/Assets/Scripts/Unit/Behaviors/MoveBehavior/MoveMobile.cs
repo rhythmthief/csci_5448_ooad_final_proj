@@ -6,6 +6,6 @@ public class MoveMobile : MoveBehavior
 {
     public void move(Cell cell)
     {
-
+        // check if cell is occupied
     }
 }
