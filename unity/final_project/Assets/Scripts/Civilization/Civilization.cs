@@ -52,4 +52,6 @@ public abstract class Civilization
     /// </summary>
     /// <param name="color_"></param>
     public void setCivColor(Color color_) => civColor = color_;
+
+    public List<Unit> getFighters() => fighters;
 }

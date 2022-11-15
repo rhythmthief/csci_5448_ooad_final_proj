@@ -48,4 +48,6 @@ public class GameBoard
     }
 
     public Cell[][] getCells() => cells;
+
+    public List<Civilization> getCivilizations() => civs;
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Cell : Subject
 {
     int[] coords; //[x, y, z] coordinates in the world
-    Unit unit;
+    Unit unit = null;
     List<Cell> adjacent;
 
     /// <summary>
@@ -58,4 +58,6 @@ public class Cell : Subject
     /// </summary>
     /// <param name="unit_">New unit</param>
     public void setUnit(Unit unit_) => unit = unit_; 
+
+    public Unit getUnit() => unit;
 }

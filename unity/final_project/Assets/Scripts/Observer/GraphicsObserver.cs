@@ -8,7 +8,7 @@ public class GraphicsObserver : Observer
     static GraphicsObserver singleton = new GraphicsObserver();
 
     static GraphicsFactory graphicsFactory = null;
-    List<GameObject> graphicsObjects = new List<GameObject>();
+    //List<GameObject> graphicsObjects = new List<GameObject>();
 
     static MonoHelper monoHelper;
 
@@ -52,30 +52,45 @@ public class GraphicsObserver : Observer
                     if (e.getCoords0() == null)
                     {
                         // the fighter just spawned
-                        graphicsObjects.Add(graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color()));
+                        graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color());
                     }
                     else
                     {
                         // the fighter just moved
                         // delete old corresponding graphical object
-                        string oldName = e.getMessage()[1] + "_" + string.Join("-", e.getCoords0()); // name of the old object
-                        GameObject oldObj = graphicsFactory.transform.Find(oldName).gameObject; // find the old object
-                        graphicsObjects.Remove(oldObj); // remove old object reference from the list
-                        monoHelper.DestroyObjectHelper(oldObj); // destroy old object
+                        removeOldObject(e.getMessage()[1] + "_" + string.Join("-", e.getCoords0()));
+
+
 
                         // create new corresponding graphical object
-                        graphicsObjects.Add(graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color()));
+                        graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color());
                     }
                 }
                 else
                 {
                     modelParam = 1;
                     // this is a city and it just spawned
-                    graphicsObjects.Add(graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color()));
+                    graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color());
                 }
 
                 break;
 
+            // unit has died
+            case 2:
+                // delete old corresponding graphical object
+                Debug.Log("Unit died: " + e.getMessage()[1] + "_" + string.Join("-", e.getCoords1()));
+                removeOldObject(e.getMessage()[1] + "_" + string.Join("-", e.getCoords1()));
+                break;
         }
+    }
+
+
+    void removeOldObject(string oldName)
+    {
+        GameObject oldObj = graphicsFactory.transform.Find(oldName).gameObject; // find the old object
+
+        //graphicsObjects.Remove(oldObj); // remove old object reference from the list
+        monoHelper.DestroyObjectHelper(oldObj); // destroy old object
+        oldObj = null;
     }
 }

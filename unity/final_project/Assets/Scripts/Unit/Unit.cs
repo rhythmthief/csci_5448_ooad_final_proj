@@ -7,6 +7,7 @@ public abstract class Unit : Subject
     protected int damage = 30;
     protected int hp = 100;
     protected bool alive = true;
+    protected bool turnComplete = false;
 
     protected Cell cell; // location of the unit
 
@@ -16,7 +17,6 @@ public abstract class Unit : Subject
 
     protected string type;
 
-
     public void reduceHP(int reduction)
     {
         hp -= reduction;
@@ -24,12 +24,15 @@ public abstract class Unit : Subject
 
         if (!alive)
         {
+            notifyObservers(new Event(2, null, cell.getCoordinates(), new string[2]{"fighter", type})); // unit died, notify observers
+            
             civ.removeFighter(this);
-            notifyObservers(new Event(1, null,  null, null)); // unit died, notify observers
+            cell.setUnit(null); // vacate the cell this unit was in
         }
     }
 
-    void attack(Unit target) => cb.attack(this, target);
+    public void attack(Unit target) => cb.attack(this, target);
+    public void move(Cell cell_) => mb.move(this, cell_);
     void computeAlive() => alive = hp < 1 ? false : true;
     public int getDamage() => damage;
     public Civilization getCiv() => civ;
@@ -37,4 +40,7 @@ public abstract class Unit : Subject
     public void setHP(int hp_) => hp = hp_;
     public void setDamage(int damage_) => damage = damage_;
     public Cell getCell() => cell;
+    public void setCell(Cell cell_) => cell = cell_;
+    public bool isTurnComplete() => turnComplete;
+    public void flipTurnComplete() => turnComplete = !turnComplete;
 }

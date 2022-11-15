@@ -31,6 +31,7 @@ public class GraphicsFactory : MonoBehaviour
         GameObject newObject = GameObject.Instantiate(prefab);
         newObject.transform.Translate(vec, Space.World);
         newObject.name = newName;
+        newObject.transform.SetParent(this.transform);
         newObject.SetActive(true);
 
         return newObject;
