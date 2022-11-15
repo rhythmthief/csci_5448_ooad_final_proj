@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class UnitFactory
 {
-    public Unit produce(string type, Civilization civ)
+    public Unit produce(string type, Civilization civ, Cell cell_, GraphicsObserver graphicsObserver_)
     {
         Unit unit = null;
 
         if (type == "city")
         {
-            unit = new UnitCity();
+            unit = new UnitCity(civ, cell_, graphicsObserver_);
 
             if (civ is CivilizationConqueror)
             {
@@ -27,13 +27,13 @@ public class UnitFactory
             switch (type)
             {
                 case "melee":
-                    unit = new UnitMelee();
+                    unit = new UnitMelee(civ, cell_, graphicsObserver_);
                     break;
                 case "ranged":
-                    unit = new UnitRanged();
+                    unit = new UnitRanged(civ, cell_, graphicsObserver_);
                     break;
                 case "airborne":
-                    unit = new UnitAirborne();
+                    unit = new UnitAirborne(civ, cell_, graphicsObserver_);
                     break;
             }
 
