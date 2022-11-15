@@ -10,14 +10,17 @@ public class GraphicsObserver : Observer
     static GraphicsFactory graphicsFactory = null;
     List<GameObject> graphicsObjects = new List<GameObject>();
 
+    static MonoHelper monoHelper;
+
     private GraphicsObserver() { }
 
     public static GraphicsObserver getGraphicsObserver() => singleton;
 
-    public void setGraphicsFactory(GraphicsFactory graphicsFactory_)
+    public void setupGraphicsObserver(GraphicsFactory graphicsFactory_, MonoHelper monoHelper_)
     {
         // set a graphicsfactory reference for use with the singleton
         graphicsFactory = graphicsFactory_;
+        monoHelper = monoHelper_;
     }
 
     public void update(Event e)
@@ -49,23 +52,26 @@ public class GraphicsObserver : Observer
                     if (e.getCoords0() == null)
                     {
                         // the fighter just spawned
-                        graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color());
+                        graphicsObjects.Add(graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color()));
                     }
                     else
                     {
                         // the fighter just moved
                         // delete old corresponding graphical object
-
+                        string oldName = e.getMessage()[1] + "_" + string.Join("-", e.getCoords0()); // name of the old object
+                        GameObject oldObj = graphicsFactory.transform.Find(oldName).gameObject; // find the old object
+                        graphicsObjects.Remove(oldObj); // remove old object reference from the list
+                        monoHelper.DestroyObjectHelper(oldObj); // destroy old object
 
                         // create new corresponding graphical object
-                        graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color());
+                        graphicsObjects.Add(graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color()));
                     }
                 }
                 else
                 {
                     modelParam = 1;
                     // this is a city and it just spawned
-                    graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color());
+                    graphicsObjects.Add(graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color()));
                 }
 
                 break;

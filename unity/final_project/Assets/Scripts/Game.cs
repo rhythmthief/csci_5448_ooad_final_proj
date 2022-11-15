@@ -8,8 +8,11 @@ public class Game : MonoBehaviour
 
     void Start()
     {
+    MonoHelper monoHelper = transform.GetComponent<MonoHelper>();
+
+
         // set graphic observer's graphicsfactory reference
-        GraphicsObserver.getGraphicsObserver().setGraphicsFactory(GetComponent<GraphicsFactory>());
+        GraphicsObserver.getGraphicsObserver().setupGraphicsObserver(GetComponent<GraphicsFactory>(), monoHelper);
 
         GS.setPlayerCivSelection("barbarian");
         GameBoard gameBoard = new GameBoard(GS.getPlayerCivSelection());
