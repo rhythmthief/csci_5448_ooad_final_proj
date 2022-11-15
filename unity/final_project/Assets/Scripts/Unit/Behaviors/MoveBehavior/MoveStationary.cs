@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class MoveStationary : MoveBehavior
 {
-    bool moved = false; // stationary units only "move" once -- when they are spawned into a cell
+    bool spawned = false; // flag for whether the unit has already spawned
 
     public void move(Unit self, Cell cell_)
     {
         // ensure that the cell is not occupied
-        if (cell_.isFree() && !moved)
+        if (cell_.isFree() && !spawned)
         {
+            //Debug.Log();
+
             cell_.setUnit(self);
-            moved = true;
-            self.notifyObservers(new Event(0, cell_.getCoordinates(), new string[1] { "city" }));
+            spawned = true;
+            self.notifyObservers(new Event(1, null, cell_.getCoordinates(), new string[1] { "city" }));
         }
     }
 }

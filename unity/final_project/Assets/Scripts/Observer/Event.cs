@@ -6,22 +6,32 @@ public class Event
 {
     /*
         Event types
-            0 - Unit spawned
+            0 - Cell spawned
+            1 - Unit moved
+            2 - Unit died
     */
 
 
     int type;
-    int[] coords; // xyz coordinates related to the event
+    int[] coords0; // xyz coordinates related to the event
+    int[] coords1; // xyz coordinates related to the event
 
     // the user is expected to be nice and pass the correct number of messages with each message type
     // see relevant observer implementations 
     string[] message;
 
 
-    public Event(int type_, int[] coords_, string[] message_)
+    public Event(int type_, int[] coords0_, int[] coords1_, string[] message_)
     {
         type = type_;
-        coords = coords_;
+        coords0 = coords0_;
+        coords1 = coords1_;
         message = message_;
     }
+
+    public int getType() => type;
+
+    public int[] getCoords0() => coords0;
+    public int[] getCoords1() => coords1;
+    public string[] getMessage() => message;
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Utils
 {
-    public static Cell[][] generateBoard()
+    public static Cell[][] generateBoard(Observer graphicsObserver)
     {
         Cell[][] cells = new Cell[20][];
 
@@ -16,6 +16,8 @@ public class Utils
             for (int j = 0; j < 20; j++)
             {
                 cellLine[j] = new Cell(i, 0, j);
+                cellLine[j].registerObserver(graphicsObserver);
+                cellLine[j].notifyObservers(new Event(0, null, cellLine[j].getCoordinates(), null));
             }
 
             cells[i] = cellLine;

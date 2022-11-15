@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cell
+public class Cell : Subject
 {
     int[] coords; //[x, y, z] coordinates in the world
     Unit unit;

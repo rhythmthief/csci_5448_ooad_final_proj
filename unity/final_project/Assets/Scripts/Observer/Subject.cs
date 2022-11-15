@@ -4,8 +4,7 @@ using UnityEngine;
 
 public abstract class Subject
 {
-    List<Observer> observers;
-
+    List<Observer> observers = new List<Observer>();
 
     /// <summary>
     /// Notify all observers of this subject
@@ -19,12 +18,12 @@ public abstract class Subject
         }
     }
 
-    void registerObservers(Observer o)
+    public void registerObserver(Observer o)
     {
         observers.Add(o);
     }
 
-    void deregisterObservers(Observer o)
+    public void deregisterObserver(Observer o)
     {
         observers.Remove(o);
     }

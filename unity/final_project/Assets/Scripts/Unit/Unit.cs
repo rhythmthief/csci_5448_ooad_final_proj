@@ -20,11 +20,17 @@ public abstract class Unit : Subject
     public void reduceHP(int reduction)
     {
         hp -= reduction;
-        checkAlive();
+        computeAlive();
+
+        if (!alive)
+        {
+            civ.removeFighter(this);
+            notifyObservers(new Event(1, null,  null, null)); // unit died, notify observers
+        }
     }
 
     void attack(Unit target) => cb.attack(this, target);
-    void checkAlive() => alive = hp < 1 ? false : true; 
+    void computeAlive() => alive = hp < 1 ? false : true;
     public int getDamage() => damage;
     public Civilization getCiv() => civ;
     public string getUnitType() => type;
