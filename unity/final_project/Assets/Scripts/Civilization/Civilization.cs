@@ -7,7 +7,7 @@ public abstract class Civilization
     protected string name;
     protected int productionCooldown = 3;
     protected Unit city;
-    protected List<Unit> fighters;
+    protected List<Unit> fighters = new List<Unit>();
     protected bool playerCiv = false;
     protected Color civColor;
 

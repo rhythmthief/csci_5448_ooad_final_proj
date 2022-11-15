@@ -9,6 +9,7 @@ public class UnitMelee : Unit
         cb = new CombatMelee();
         mb = new MoveMobile();
         civ = civ_;
+        type = "melee";
 
         // set reference to the unit's civ and give civ reference to the unit
         civ = civ_;

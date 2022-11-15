@@ -9,11 +9,12 @@ public class UnitCity : Unit
         damage = 20;
         hp = 500;
         mb = new MoveStationary();
+        type = "city";
 
         // set reference to the unit's civ and give civ reference to the unit
         civ = civ_;
         civ_.setCity(this);
-        
+
         // register its new graphics observer
         registerObserver(graphicsObserver_);
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     GameSettings GS = GameSettings.getGameSettings();
+
     void Start()
     {
         // set graphic observer's graphicsfactory reference
@@ -12,6 +13,10 @@ public class Game : MonoBehaviour
 
         GS.setPlayerCivSelection("barbarian");
         GameBoard gameBoard = new GameBoard(GS.getPlayerCivSelection());
+
+        // configure the client and assign it to button logic
+        Client client = new Client(gameBoard);
+        transform.GetChild(0).GetComponent<CreateButtonLogic>().setClient(client);
 
         //GraphicsFactory graphicsFactory = GetComponent<GraphicsFactory>();
         //Cell[][] cells = gameBoard.getCells();

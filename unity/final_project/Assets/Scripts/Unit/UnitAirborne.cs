@@ -8,6 +8,7 @@ public class UnitAirborne : Unit
     {
         cb = new CombatAirborne();
         mb = new MoveMobile();
+        type = "airborne";
 
         // set reference to the unit's civ and give civ reference to the unit
         civ = civ_;

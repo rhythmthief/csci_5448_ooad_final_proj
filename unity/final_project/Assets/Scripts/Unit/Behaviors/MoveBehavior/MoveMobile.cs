@@ -16,11 +16,11 @@ public class MoveMobile : MoveBehavior
             cell_.setUnit(self);
 
             if (!spawned) {
-                self.notifyObservers(new Event(1, null, cell_.getCoordinates(), new string[1] { "fighter" }));
+                self.notifyObservers(new Event(1, null, cell_.getCoordinates(), new string[2] { "fighter", self.getUnitType() }));
                 spawned = true;
             }
             else 
-                self.notifyObservers(new Event(1, cellOld.getCoordinates(), cell_.getCoordinates(), new string[1] { "fighter" }));
+                self.notifyObservers(new Event(1, cellOld.getCoordinates(), cell_.getCoordinates(), new string[2] { "fighter", self.getUnitType() }));
         }
     }
 }

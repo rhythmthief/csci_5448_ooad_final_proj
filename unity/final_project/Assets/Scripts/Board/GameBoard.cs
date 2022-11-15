@@ -33,6 +33,10 @@ public class GameBoard
         civs[0].setPlayerCiv();
     }
 
+    public Civilization getCiv(int index) {
+        return civs[index];
+    }
+
     public void spawnUnit(Civilization civ, string type)
     {
         Cell cell = Utils.findSpawnLocation(civ);

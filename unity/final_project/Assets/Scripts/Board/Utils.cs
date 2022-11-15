@@ -115,31 +115,46 @@ public class Utils
         cells.Add(startingCell);
         Cell choice = null;
 
-        // scan every cell in the list
-        foreach (Cell cell_ in cells)
-        {
-            List<Cell> neighbors = cell_.getAdjacent();
-            List<Cell> newCells = new List<Cell>();
+        List<Cell> notConsidered = new List<Cell>();
 
-            // scan every neighbor of a cell from the list
-            foreach (Cell n in neighbors)
+        while (cells.Count != 0)
+        {
+            List<Cell> newList = new List<Cell>();
+            // scan every cell in the list
+            foreach (Cell cell_ in cells)
             {
-                if (!n.isFree())
+                notConsidered.Add(cell_);
+
+                List<Cell> neighbors = cell_.getAdjacent();
+
+                // scan every neighbor of a cell from the list
+                foreach (Cell n in neighbors)
                 {
-                    // if neighbor isn't free, it'll be in the new traversal list
-                    newCells.Add(n);
+                    if (!n.isFree())
+                    {
+                        // if neighbor isn't free and hasn't already been traversed, it'll be in the new traversal list
+                        
+                        if (!notConsidered.Contains(n) && !newList.Contains(n))
+                            newList.Add(n);
+                    }
+                    else
+                    {
+                        // if neighbor is free, we pick it and terminate
+                        choice = n;
+                        break;
+                    }
                 }
-                else
-                {
-                    // if neighbor is free, we pick it and terminate
-                    choice = n;
+
+                // check if a cell has been selected for spawn
+                if (choice != null)
                     break;
-                }
+
             }
 
-            // check if a cell has been selected for spawn
             if (choice != null)
                 break;
+
+            cells = newList;
         }
 
         return choice;

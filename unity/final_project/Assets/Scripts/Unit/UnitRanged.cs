@@ -9,6 +9,7 @@ public class UnitRanged : Unit
         cb = new CombatRanged();
         mb = new MoveMobile();
         civ = civ_;
+        type = "ranged";
 
         // set reference to the unit's civ and give civ reference to the unit
         civ = civ_;
