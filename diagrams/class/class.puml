@@ -235,133 +235,141 @@ package Assets.Scripts.Unit {
 }
 
 package Assets.Scripts {
-    -GS : GameSettings
-    -gameBoard : GameBoard
-
-    -Start()
-    -GameLoop() : IEnumerator
+    class Game {
+        -GS : GameSettings
+        -gameBoard : GameBoard
+        -Start()
+        -GameLoop() 
+    }
 }
 
-AI --> Cell
-AI --> Unit
-AI <-- Game
+package Unity {
+    class MonoBehaviour{}
+    class Color{}
+    class GameObject{}
+}
 
-Cell --> Unit
-Cell --> Cell
 
-GameBoard --> Cell
-GameBoard --> Civilization
-GameBoard --> UnitFactory
-GameBoard --> CivFactory
-GameBoard --> GraphicsObserver
+AI ---> Cell
+AI ---> Unit
+AI <--- Game
 
-MonoHelper --|> MonoBehaviour
+Cell ---> Unit
+Cell ---> Cell
 
-Utils --> Cell
-Utils --> Civilization
+GameBoard ---> Cell
+GameBoard ---> Civilization
+GameBoard ---> UnitFactory
+GameBoard ---> CivFactory
+GameBoard ---> GraphicsObserver
 
-Civilization --> Unit
-Civilization --> Color
+MonoHelper ---|> MonoBehaviour
 
-CivilizationBarbarian --|> Civilization
-CivilizationConqueror --|> Civilization
-CivilizationDefender --|> Civilization
+Utils ---> Cell
+Utils ---> Civilization
 
-Client --> Civilization
-Client --> GameBoard
+Civilization ---> Unit
+Civilization ---> Color
 
-CivFactory --> Civilization
-CivFactory --> CivilizationBarbarian
-CivFactory --> CivilizationConqueror
-CivFactory --> CivilizationDefender
-CivFactory --> Color
+CivilizationBarbarian ---|> Civilization
+CivilizationConqueror ---|> Civilization
+CivilizationDefender ---|> Civilization
 
-GraphicsFactory --> GameObject
+Client ---> Civilization
+Client ---> GameBoard
 
-UnitFactory --> Unit
-UnitFactory --> CivilizationBarbarian
-UnitFactory --> CivilizationConqueror
-UnitFactory --> CivilizationDefender
-UnitFactory --> UnitMelee
-UnitFactory --> UnitRanged
-UnitFactory --> UnitAirborne
-UnitFactory --> UnitCity
-UnitFactory --> Cell
-UnitFactory --> GraphicsObserver
-UnitFactory --> Civilization
+CivFactory ---> Civilization
+CivFactory ---> CivilizationBarbarian
+CivFactory ---> CivilizationConqueror
+CivFactory ---> CivilizationDefender
+CivFactory ---> Color
 
-Event --> Color
+GraphicsFactory ---> GameObject
 
-GraphicsObserver --|> Observer
-GraphicsObserver --> GraphicsObserver
-GraphicsObserver --> GraphicsFactory
-GraphicsObserver --> MonoHelper
-GraphicsObserver --> Event
-GraphicsObserver --> Color
-GraphicsObserver --> GameObject
+UnitFactory ---> Unit
+UnitFactory ---> CivilizationBarbarian
+UnitFactory ---> CivilizationConqueror
+UnitFactory ---> CivilizationDefender
+UnitFactory ---> UnitMelee
+UnitFactory ---> UnitRanged
+UnitFactory ---> UnitAirborne
+UnitFactory ---> UnitCity
+UnitFactory ---> Cell
+UnitFactory ---> GraphicsObserver
+UnitFactory ---> Civilization
 
-Observer --> Event
+Event ---> Color
 
-Subject --> Observer
-Subject --> Event
+GraphicsObserver ---|> Observer
+GraphicsObserver ---> GraphicsObserver
+GraphicsObserver ---> GraphicsFactory
+GraphicsObserver ---> MonoHelper
+GraphicsObserver ---> Event
+GraphicsObserver ---> Color
+GraphicsObserver ---> GameObject
 
-GameSettings --> GameSettings
+Observer ---> Event
 
-CreateButtonLogic --|> MonoBehaviour
-CreateButtonLogic --> Client
+Subject ---> Observer
+Subject ---> Event
 
-SceneLoader --|> MonoBehaviour
+GameSettings ---> GameSettings
 
-CombatBehavior --> Unit
-CombatBehavior --> CivilizationConqueror
+CreateButtonLogic ---|> MonoBehaviour
+CreateButtonLogic ---> Client
 
-CombatAirborne --|> CombatBehavior
-CombatMelee --|> CombatBehavior
-CombatRanged --|> CombatBehavior
-CombatCity --|> CombatBehavior
+SceneLoader ---|> MonoBehaviour
 
-MoveMobile ..|> MoveBehavior
-MoveMobile --> Unit
-MoveMobile --> Cell
-MoveMobile --> Event
+CombatBehavior ---> Unit
+CombatBehavior ---> CivilizationConqueror
 
-MoveStationary ..|> MoveBehavior
-MoveStationary --> Unit
-MoveStationary --> Cell
-MoveStationary --> Event
+CombatAirborne ---|> CombatBehavior
+CombatMelee ---|> CombatBehavior
+CombatRanged ---|> CombatBehavior
+CombatCity ---|> CombatBehavior
 
-Unit --|> Subject
-Unit --> Cell
-Unit --> MoveBehavior
-Unit --> CombatBehavior
-Unit --> Civilization
-Unit --> Event
-Unit --> Unit
+MoveMobile ...|> MoveBehavior
+MoveMobile ---> Unit
+MoveMobile ---> Cell
+MoveMobile ---> Event
 
-UnitAirborne --|> Unit
-UnitAirborne --> MoveMobile
-UnitAirborne --> GraphicsObserver
+MoveStationary ...|> MoveBehavior
+MoveStationary ---> Unit
+MoveStationary ---> Cell
+MoveStationary ---> Event
 
-UnitCity --|> Unit
-UnitCity --> MoveStationary
-UnitCity --> GraphicsObserver
+Unit ---|> Subject
+Unit ---> Cell
+Unit ---> MoveBehavior
+Unit ---> CombatBehavior
+Unit ---> Civilization
+Unit ---> Event
+Unit ---> Unit
 
-UnitMelee --|> Unit
-UnitMelee --> MoveMobile
-UnitMelee --> GraphicsObserver
+UnitAirborne ---|> Unit
+UnitAirborne ---> MoveMobile
+UnitAirborne ---> GraphicsObserver
 
-UnitRanged --|> Unit
-UnitRanged --> MoveMobile
-UnitRanged --> GraphicsObserver
+UnitCity ---|> Unit
+UnitCity ---> MoveStationary
+UnitCity ---> GraphicsObserver
 
-Game --|> MonoBehaviour
-Game --> GameSettings
-Game --> GameBoard
-Game --> MonoHelper
-Game --> AI
-Game --> Client
-Game --> Civilization
-Game --> CreateButtonLogic
-Game --> GraphicsFactory
+UnitMelee ---|> Unit
+UnitMelee ---> MoveMobile
+UnitMelee ---> GraphicsObserver
+
+UnitRanged ---|> Unit
+UnitRanged ---> MoveMobile
+UnitRanged ---> GraphicsObserver
+
+Game ---|> MonoBehaviour
+Game ---> GameSettings
+Game ---> GameBoard
+Game ---> MonoHelper
+Game ---> AI
+Game ---> Client
+Game ---> Civilization
+Game ---> CreateButtonLogic
+Game ---> GraphicsFactory
 
 @enduml

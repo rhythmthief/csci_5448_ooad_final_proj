@@ -186,6 +186,7 @@ Unity generally advises tight coupling with their MonoBehavior base class, which
     \item Singleton 
     \begin{itemize}
         \item Singleton is being used for the persistent game settings object passed between scenes.
+        \item GraphicsObserver is also implemented as a singleton so as to enforce its role as the only object that interacts with Unity graphics.
     \end{itemize}
 \end{itemize}
 
