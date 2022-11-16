@@ -33,22 +33,36 @@ public class Game : MonoBehaviour
 
         while (true)
         {
+            List<Civilization> civs_ = new List<Civilization>(civs);
+
             // process turns for all civs
-            foreach (Civilization civ in civs)
+            foreach (Civilization civ in civs_)
             {
-                if (civ.isPlayerCiv())
+                if (civ.getCity() == null)
                 {
-                    // process turn for the player
+                    // civ's city has been destroyed
+                    civ.defeat();
+                    civs.Remove(civ);
                 }
                 else
                 {
-                    // process turn for the AI
-                    ai.AITurnProcessor(gameBoard, civ);
+                    // civ is still active and stays in the game
+                    if (civ.isPlayerCiv())
+                    {
+                        // process turn for the player
+                    }
+                    else
+                    {
+                        // process turn for the AI
+                        ai.AITurnProcessor(gameBoard, civ);
+                    }
                 }
             }
 
+
+
             // wait for 1 second
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
         }
     }
 

@@ -70,12 +70,12 @@ public class AI
             // for now, set up to move at random, further playtesting will reveal if this is good enough
             // reasoning: units will not immediately go far away from the capital city and will likely spread around in the area
 
-           // BFS to find the nearest enemy city
-           // Get coordinates of the city, getCell().getCoordinates() 
-           // Look at X and Z of the unit and the city
-           // Between the possible moves, look for move that would get theirs and the city's coordinates closer
+            // BFS to find the nearest enemy city
+            // Get coordinates of the city, getCell().getCoordinates() 
+            // Look at X and Z of the unit and the city
+            // Between the possible moves, look for move that would get theirs and the city's coordinates closer
 
-           // get location of the civilization's city
+            // get location of the civilization's city
             Cell startingCell = unit.getCell();
             List<Cell> cells = new List<Cell>();
             cells.Add(startingCell);
@@ -99,7 +99,7 @@ public class AI
                         if (n.isFree() || n.getUnit() is not UnitCity || (n.getUnit() is UnitCity && n.getUnit().getCiv() == unit.getCiv()))
                         {
                             // if neighbor isn't free and hasn't already been traversed, it'll be in the new traversal list
-                            
+
                             if (!notConsidered.Contains(n) && !newList.Contains(n))
                                 newList.Add(n);
                         }
@@ -128,26 +128,37 @@ public class AI
             int[] unitCoords = unit.getCell().getCoordinates();
 
             Cell destination = null;
-            foreach (Cell n in unit.getCell().getAdjacent()) {
-                // look through the cells and find which one will get it closer to the 
-                if ((cityCoords[0] > unitCoords[0]) && (n.getCoordinates()[0] > unitCoords[0]) ) {
-                    destination = n;
-                    break;
-                } else if ((cityCoords[2] > unitCoords[2]) && (n.getCoordinates()[2] > unitCoords[2])) {
-                    destination = n;
-                    break;
-                }
-                if ((cityCoords[0] < unitCoords[0]) && (n.getCoordinates()[0] < unitCoords[0]) ) {
-                    destination = n;
-                    break;
-                } else if ((cityCoords[2] < unitCoords[2]) && (n.getCoordinates()[2] < unitCoords[2])) {
-                    destination = n;
-                    break;
+            foreach (Cell n in unit.getCell().getAdjacent())
+            {
+                if (n.isFree())
+                {
+                    // look through the cells and find which one will get it closer to the 
+                    if ((cityCoords[0] > unitCoords[0]) && (n.getCoordinates()[0] > unitCoords[0]))
+                    {
+                        destination = n;
+                        break;
+                    }
+                    else if ((cityCoords[2] > unitCoords[2]) && (n.getCoordinates()[2] > unitCoords[2]))
+                    {
+                        destination = n;
+                        break;
+                    }
+                    if ((cityCoords[0] < unitCoords[0]) && (n.getCoordinates()[0] < unitCoords[0]))
+                    {
+                        destination = n;
+                        break;
+                    }
+                    else if ((cityCoords[2] < unitCoords[2]) && (n.getCoordinates()[2] < unitCoords[2]))
+                    {
+                        destination = n;
+                        break;
+                    }
                 }
             }
 
 
-            if (destination == null) {
+            if (destination == null)
+            {
                 foreach (Cell n in unit.getCell().getAdjacent())
                 {
                     if (n.isFree())
@@ -161,10 +172,11 @@ public class AI
             }
 
 
-            if (destination != null) {
+            if (destination != null)
+            {
                 unit.move(destination);
             }
-        
+
         }
     }
 }

@@ -11,8 +11,6 @@ public class MoveStationary : MoveBehavior
         // ensure that the cell is not occupied
         if (cell_.isFree() && !spawned)
         {
-            //Debug.Log();
-
             cell_.setUnit(self);
             self.setCell(cell_);
             spawned = true;

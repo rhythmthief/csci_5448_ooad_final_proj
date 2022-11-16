@@ -55,4 +55,15 @@ public abstract class Civilization
 
     public List<Unit> getFighters() => fighters;
     public Color getColor() => civColor;
+    public void removeCity() => city = null;
+    
+    public void defeat() {
+       List<Unit> fighters_ = new List<Unit>(fighters);
+
+        foreach (Unit fighter in fighters_)
+        {
+            // make every unit despawn
+            fighter.reduceHP(1000);
+        }
+    }
 }

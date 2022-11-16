@@ -78,7 +78,6 @@ public class GraphicsObserver : Observer
             // unit has died
             case 2:
                 // delete old corresponding graphical object
-                Debug.Log("Unit died: " + e.getMessage()[1] + "_" + string.Join("-", e.getCoords1()));
                 removeOldObject(e.getMessage()[1] + "_" + string.Join("-", e.getCoords1()));
                 break;
         }
