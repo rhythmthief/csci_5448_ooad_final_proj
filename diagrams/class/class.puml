@@ -12,7 +12,7 @@ package Assets.Scripts.AI {
 }
 
 
-package Board {
+package Assets.Scripts.Board {
     class Cell {
         -coords : int[]
         -unit : Unit    
@@ -27,7 +27,7 @@ package Board {
         +getUnit() : Unit
     }
 
-    class Assets.Scripts.GameBoard {
+    class GameBoard {
         -cells : Cell[][]
         -civs : List<Civilization>
         -unitFactory : UnitFactory
@@ -39,8 +39,208 @@ package Board {
         +getCells() : Cell[][]
         +getCivilizations() : List<Civilization>
     }
+
+    class MonoHelper {
+        +DestroyObjectHelper()
+    }
+
+    class Utils {
+        +generateBoard() : Cell[][]
+        +findSpawnLocation() : Cell
+    }
 }
 
+package Assets.Scripts.Civilization {
+    abstract class Civilization {
+        #name : string
+        #productionCooldown : int
+        #city : Unit
+        #fighters : List<Unit>
+        #playerCiv : bool
+        #civColor : Color
+
+        +getCity() : Unit
+        +addFighter()
+        +removeFighter()
+        +setCity()
+        +setPlayerCiv()
+        +isPlayerCiv() : bool
+        +setCivColor()
+        +getFighters() : List<Unit>
+        +getColor() : Color
+        +removeCity()
+        +defeat()
+    }
+
+    class CivilizationBarbarian {}
+    class CivilizationConqueror {}
+    class CivilizationDefender {}
+}
+
+package Assets.Scripts.Command {
+    class Client {
+        +civ : Civilization
+        +gameBoard : GameBoard
+
+        +spawnUnit()
+    }
+
+    note "work in progress" as noteCommand
+}
+
+package Assets.Scripts.Factory{
+    class CivFactory {
+        +produce() : Civilization
+    }
+    class GraphicsFactory {
+        +GridCell : GameObject
+        +City : GameObject
+        +Melee : GameObject
+        +Ranged : GameObject
+        +Airborne : GameObject
+
+        +CreateGraphicalObject() : GameObject
+    }
+    class UnitFactory {
+        +produce() : Unit
+    }
+
+    note "The GameObjects are public for Unity access" as noteFactory
+
+}
+
+package Assets.Scripts.Observer {
+    class Event {
+        -type : int
+        -coords0 : int[]
+        -coords1 : int[]
+        -message : string[]
+        -color : Color
+
+        +getType() : int
+        +getCoords0() : int[]
+        +getCoords1() : int[]
+        +getMessage() : string[]
+        +getColor() : Color
+    }
+
+    class GraphicsObserver {
+        -singleton : GraphicsObserver
+        -graphicsFactory : GraphicsFactory
+        -monoHelper : MonoHelper
+
+        -GraphicsObserver()
+        +getGraphicsObserver() : GraphicsObserver
+        +setupGraphicsObserver()
+        +update()
+        -removeOldObject()
+    }
+
+    interface Observer {
+        +update()
+    }
+
+    abstract class Subject {
+        +notifyObserver()
+        +registerObserver()
+        +deregisterObserver()
+    }
+}
+
+package Assets.Scripts.Singleton {
+    class GameSettings {
+        -singleton : GameSettings
+        -playerCivSelection : string
+
+        -GameSettings()
+        +getGameSettings() : GameSettings
+        +setPlayerCivSelection()
+        +getPlayerCivSelection() : string
+    }
+}
+
+package Assets.Scripts.UI {
+    class CreateButtonLogic {
+        -client Client
+
+        +setClient()
+        +createUnit()
+    }
+
+    class SceneLoader {
+        +LoadGameScene()
+    }
+}
+
+package Assets.Scripts.Unit.Behaviors.CombatBehavior {
+    abstract class CombatBehavior {
+        #weakAgainst : string
+        #strongAgainst : string
+
+        +attack()
+    }
+
+    class CombatAirborne {}
+    class CombatCity {}
+    class CombatMelee {}
+    class CombatRanged {}
+}
+
+package Assets.Scripts.Unit.Behaviors.MoveBehavior {
+    interface MoveBehavior {
+        +move()
+    }
+    class MoveMobile {
+        -spawned : bool
+
+        +move()
+    }
+    class MoveStationary {
+        -spawned : bool
+
+        +move()
+    }
+}
+
+package Assets.Scripts.Unit {
+    abstract class Unit {
+        #damage : int
+        #hp : int
+        #alive : bool
+        #turnComplete : bool
+        #cell : Cell
+        #mb : MoveBehavior
+        #cb : CombatBehavior
+        #civ : Civilization
+        #type : string
+
+        +reduceHP()
+        +attack()
+        +move()
+        -computeAlive()
+        +getDamage()
+        +getCiv() : Civilization
+        +getUnitType() : string
+        +setHP()
+        +setDamage()
+        +getCell() : Cell
+        +setCell()
+        +isTurnComplete() : bool
+        +flipTurnComplete()
+    }
+    class UnitAirborne {}
+    class UnitCity {}
+    class UnitMelee {}
+    class UnitRanged {}
+}
+
+package Assets.Scripts {
+    -GS : GameSettings
+    -gameBoard : GameBoard
+
+    -Start()
+    -GameLoop() : IEnumerator
+}
 
 AI --> Cell
 AI --> Unit
@@ -55,5 +255,113 @@ GameBoard --> UnitFactory
 GameBoard --> CivFactory
 GameBoard --> GraphicsObserver
 
+MonoHelper --|> MonoBehaviour
+
+Utils --> Cell
+Utils --> Civilization
+
+Civilization --> Unit
+Civilization --> Color
+
+CivilizationBarbarian --|> Civilization
+CivilizationConqueror --|> Civilization
+CivilizationDefender --|> Civilization
+
+Client --> Civilization
+Client --> GameBoard
+
+CivFactory --> Civilization
+CivFactory --> CivilizationBarbarian
+CivFactory --> CivilizationConqueror
+CivFactory --> CivilizationDefender
+CivFactory --> Color
+
+GraphicsFactory --> GameObject
+
+UnitFactory --> Unit
+UnitFactory --> CivilizationBarbarian
+UnitFactory --> CivilizationConqueror
+UnitFactory --> CivilizationDefender
+UnitFactory --> UnitMelee
+UnitFactory --> UnitRanged
+UnitFactory --> UnitAirborne
+UnitFactory --> UnitCity
+UnitFactory --> Cell
+UnitFactory --> GraphicsObserver
+UnitFactory --> Civilization
+
+Event --> Color
+
+GraphicsObserver --|> Observer
+GraphicsObserver --> GraphicsObserver
+GraphicsObserver --> GraphicsFactory
+GraphicsObserver --> MonoHelper
+GraphicsObserver --> Event
+GraphicsObserver --> Color
+GraphicsObserver --> GameObject
+
+Observer --> Event
+
+Subject --> Observer
+Subject --> Event
+
+GameSettings --> GameSettings
+
+CreateButtonLogic --|> MonoBehaviour
+CreateButtonLogic --> Client
+
+SceneLoader --|> MonoBehaviour
+
+CombatBehavior --> Unit
+CombatBehavior --> CivilizationConqueror
+
+CombatAirborne --|> CombatBehavior
+CombatMelee --|> CombatBehavior
+CombatRanged --|> CombatBehavior
+CombatCity --|> CombatBehavior
+
+MoveMobile ..|> MoveBehavior
+MoveMobile --> Unit
+MoveMobile --> Cell
+MoveMobile --> Event
+
+MoveStationary ..|> MoveBehavior
+MoveStationary --> Unit
+MoveStationary --> Cell
+MoveStationary --> Event
+
+Unit --|> Subject
+Unit --> Cell
+Unit --> MoveBehavior
+Unit --> CombatBehavior
+Unit --> Civilization
+Unit --> Event
+Unit --> Unit
+
+UnitAirborne --|> Unit
+UnitAirborne --> MoveMobile
+UnitAirborne --> GraphicsObserver
+
+UnitCity --|> Unit
+UnitCity --> MoveStationary
+UnitCity --> GraphicsObserver
+
+UnitMelee --|> Unit
+UnitMelee --> MoveMobile
+UnitMelee --> GraphicsObserver
+
+UnitRanged --|> Unit
+UnitRanged --> MoveMobile
+UnitRanged --> GraphicsObserver
+
+Game --|> MonoBehaviour
+Game --> GameSettings
+Game --> GameBoard
+Game --> MonoHelper
+Game --> AI
+Game --> Client
+Game --> Civilization
+Game --> CreateButtonLogic
+Game --> GraphicsFactory
 
 @enduml
