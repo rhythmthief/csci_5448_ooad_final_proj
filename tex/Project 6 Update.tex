@@ -17,7 +17,7 @@
 \def \lnamea{Windham}
 \def \lnameb{Shikada}
 \def \class{CSCI 5448}
-\def \hwnum{5} % Homework number
+\def \hwnum{6} % Homework number
 \def \assgn{Project \hwnum}
 \newif\ifcode % Switch to toggle Python code insertion, see the end of the document for the value assignment
 
@@ -192,13 +192,22 @@ Unity generally advises tight coupling with their MonoBehavior base class, which
 
 \subsection*{Class Diagram} \phantom{}
 
+See \hyperref[sec:appendixa]{Appendix A: Demonstration Class Diagram} for our class diagram.
 
 
 \subsection*{Plan for Next Iteration} \phantom{}
 
-We'll implement user controls, an actual turn-based system and endgame scoring.
+We'll implement user controls, an actual turn-based system and endgame scoring. We expect to spend another 10-15 hours to complete the project.
 
 
+% create a new page with special dimensions, include diagram
+\newpage
+\paperwidth=30in
+\paperheight=20in
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+
+\includepdf[scale=0.9, offset=0mm 0mm, pagecommand={\section*{Appendix A: Demonstration Class Diagram}\pagestyle{fancy}}\label{sec:appendixa}]{../diagrams/class/class.png}
 
 
 %\codetrue % Uncomment to enable code insertion
