@@ -19,14 +19,16 @@ public class Event
     // the user is expected to be nice and pass the correct number of messages with each message type
     // see relevant observer implementations 
     string[] message;
+    Color color; // for graphics observer
 
 
-    public Event(int type_, int[] coords0_, int[] coords1_, string[] message_)
+    public Event(int type_, int[] coords0_, int[] coords1_, string[] message_, Color color_)
     {
         type = type_;
         coords0 = coords0_;
         coords1 = coords1_;
         message = message_;
+        color = color_;
     }
 
     public int getType() => type;
@@ -34,4 +36,5 @@ public class Event
     public int[] getCoords0() => coords0;
     public int[] getCoords1() => coords1;
     public string[] getMessage() => message;
+    public Color getColor() => color;
 }

@@ -18,13 +18,13 @@ public class MoveMobile : MoveBehavior
 
             if (!spawned)
             {
-                self.notifyObservers(new Event(1, null, cell_.getCoordinates(), new string[2] { "fighter", self.getUnitType() }));
+                self.notifyObservers(new Event(1, null, cell_.getCoordinates(), new string[2] { "fighter", self.getUnitType() }, self.getCiv().getColor()));
                 spawned = true;
             }
             else
             {
                 cellOld.setUnit(null); // vacate the old cell
-                self.notifyObservers(new Event(1, cellOld.getCoordinates(), cell_.getCoordinates(), new string[2] { "fighter", self.getUnitType() }));
+                self.notifyObservers(new Event(1, cellOld.getCoordinates(), cell_.getCoordinates(), new string[2] { "fighter", self.getUnitType() }, self.getCiv().getColor()));
             }
         }
     }

@@ -16,7 +16,7 @@ public class MoveStationary : MoveBehavior
             cell_.setUnit(self);
             self.setCell(cell_);
             spawned = true;
-            self.notifyObservers(new Event(1, null, cell_.getCoordinates(), new string[1] { "city" }));
+            self.notifyObservers(new Event(1, null, cell_.getCoordinates(), new string[1] { "city" }, self.getCiv().getColor()));
         }
     }
 }

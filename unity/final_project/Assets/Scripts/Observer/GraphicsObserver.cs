@@ -52,7 +52,7 @@ public class GraphicsObserver : Observer
                     if (e.getCoords0() == null)
                     {
                         // the fighter just spawned
-                        graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color());
+                        graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), e.getColor());
                     }
                     else
                     {
@@ -63,14 +63,14 @@ public class GraphicsObserver : Observer
 
 
                         // create new corresponding graphical object
-                        graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color());
+                        graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), e.getColor());
                     }
                 }
                 else
                 {
                     modelParam = 1;
                     // this is a city and it just spawned
-                    graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), new Color());
+                    graphicsFactory.CreateGraphicalObject(modelParam, e.getCoords1(), e.getColor());
                 }
 
                 break;

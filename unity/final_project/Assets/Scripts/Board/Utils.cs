@@ -17,7 +17,7 @@ public class Utils
             {
                 cellLine[j] = new Cell(i, 0, j);
                 cellLine[j].registerObserver(graphicsObserver);
-                cellLine[j].notifyObservers(new Event(0, null, cellLine[j].getCoordinates(), null));
+                cellLine[j].notifyObservers(new Event(0, null, cellLine[j].getCoordinates(), null, new Color()));
             }
 
             cells[i] = cellLine;

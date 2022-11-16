@@ -145,6 +145,22 @@ public class AI
                     break;
                 }
             }
+
+
+            if (destination == null) {
+                foreach (Cell n in unit.getCell().getAdjacent())
+                {
+                    if (n.isFree())
+                    {
+                        // a tie-breaker in case the AI could not make the optimal move (e.g. it is obstructed)
+                        // just make ANY move
+                        destination = n;
+                        break;
+                    }
+                }
+            }
+
+
             if (destination != null) {
                 unit.move(destination);
             }

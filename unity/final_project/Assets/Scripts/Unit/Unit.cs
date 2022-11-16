@@ -24,7 +24,7 @@ public abstract class Unit : Subject
 
         if (!alive)
         {
-            notifyObservers(new Event(2, null, cell.getCoordinates(), new string[2]{"fighter", type})); // unit died, notify observers
+            notifyObservers(new Event(2, null, cell.getCoordinates(), new string[2]{"fighter", type}, new Color())); // unit died, notify observers
             
             civ.removeFighter(this);
             cell.setUnit(null); // vacate the cell this unit was in

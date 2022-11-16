@@ -54,4 +54,5 @@ public abstract class Civilization
     public void setCivColor(Color color_) => civColor = color_;
 
     public List<Unit> getFighters() => fighters;
+    public Color getColor() => civColor;
 }
