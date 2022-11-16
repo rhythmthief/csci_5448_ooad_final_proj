@@ -3,206 +3,57 @@
 skinparam linetype ortho
 hide empty members
 
-package com.civ.board {
-    class Cell {
-        occupant : Unit    
-        adjacent : ArrayList<Cell>
-    }
 
-    abstract class Unit {
-        damage : Int
-        hp : Int
-        mb : MoveBehavior
-        cm : CombatBehavior
-        attack(target: Unit)
-    }
-
-    class City {}
-
-    class Melee {}
-    class Ranged {}
-    class Airborne {}
-    class GameBoard{
-        cells : Cell[][]
-        cities : Unit[]
-        fighters : Unit[]
-    }
-}
-
-package com.civ.factory {
-    abstract Factory {}
-    class CellFactory {
-
-    }
-
-    class UnitFactory {
-
-    }
-
-    class GameBoardFactory {}
-
-
-    note as N3
-    Factory pattern
-    end note
-}
-
-package com.civ.behaviors {
-    interface CombatBehavior {}
-
-    interface MoveBehavior {}
-
-    class MeleeBehavior {}
-    class RangedBehavior {}
-    class AirborneBehavior {}
-    class MobileBehavior {}
-    class StationaryBehavior {}
-
-    note as N2
-    Assigned via strategy
-    end note
-}
-
-package com.civ.game {
-    class Run {
-        -gameBoard : GameBoard
-    }
-
-    class Main {}
-
-    class HumanTurn{
-        inputLoop()
-    }
-
-    class AITurn {
-
-    }
-}
-
-package com.civ.ai {
+package Assets.Scripts.AI {
     class AI {
-        unitDecision()
-        spawnDecision()
+        AITurnProcessor()
+        greedyMove()
     }
 }
 
-package com.civ.command {
-    note as NC
-    Command pattern
-    end note
-    class Client {
 
+package Board {
+    class Cell {
+        -coords : int[]
+        -unit : Unit    
+        -adjacent : List<Cell>
+        +Cell()
+        +setCoordinates()
+        +addAdjacent()
+        +getAdjacent() : List<Cell>
+        +getCoordinates() : int[]
+        +isFree() : bool
+        +setUnit()
+        +getUnit() : Unit
     }
 
-    interface Command {
-        execute()
-    }
+    class Assets.Scripts.GameBoard {
+        -cells : Cell[][]
+        -civs : List<Civilization>
+        -unitFactory : UnitFactory
+        -civFactory : CivFactory
+        -graphicsObserver : GraphicsObserver
 
-    class UnitSelectCommand {}
-    class UnitDeselectCommand {}
-    class UnitAttackCommand {}
-    class CitySpawnCommand {}
-
-    class Invoker {
-        SetCommand()
-    }
-
-    note as N1
-    Select/Deselect toggle UI states
-    end note
-}
-
-package com.civ.UI {
-    class ReceiveInput {}
-    class SetUIState {}
-    class UnityUISystem {}
-
-    note bottom of UnityUISystem
-    Unity's UI functionality
-    end note
-}
-
-package com.civ.observer {
-    note as NO
-    Observer pattern
-    end note
-    abstract class Observer {
-    update (event : Event)
-    }
-
-    abstract class Subject {
-        observers : ArrayList<Observer>
-        registerObserver(o : Observer)
-        deregisterObserver(o : Observer)
-        notifyObservers(event : Event)
-    }
-
-    class ScoreTracker {
-        update (event : Event)
-    }
-
-    class Event {
-        type: String
-        m1 : String
-        m2 : String
+        +getCiv() : Civilization
+        +spawnUnit()
+        +getCells() : Cell[][]
+        +getCivilizations() : List<Civilization>
     }
 }
 
-Unit --|> Subject
 
-City --|> Unit
-Melee --|> Unit
-Ranged --|> Unit
-Airborne --|> Unit
+AI --> Cell
+AI --> Unit
+AI <-- Game
 
-MeleeBehavior ..|> CombatBehavior
-RangedBehavior ..|> CombatBehavior
-AirborneBehavior ..|> CombatBehavior
-MobileBehavior ..|> MoveBehavior
-StationaryBehavior ..|> MoveBehavior
+Cell --> Unit
+Cell --> Cell
 
 GameBoard --> Cell
-Cell --> Unit
-Unit --> CombatBehavior
-Unit --> MoveBehavior
+GameBoard --> Civilization
+GameBoard --> UnitFactory
+GameBoard --> CivFactory
+GameBoard --> GraphicsObserver
 
-CellFactory --|> Factory
-UnitFactory --|> Factory
-
-CellFactory --> Cell
-UnitFactory --> com.civ.board
-GameBoardFactory --> GameBoard
-GameBoardFactory --|> Factory
-
-Main --> Run
-
-Run --> HumanTurn
-Run --> AITurn
-Run --> GameBoard
-
-AITurn --> AI
-
-Client --> ReceiveInput
-HumanTurn --> Client
-
-
-UnitSelectCommand ..|> Command
-UnitDeselectCommand ..|> Command
-UnitAttackCommand ..|> Command
-CitySpawnCommand ..|> Command
-
-Invoker --> Command
-Client --> Invoker
-AI --> Unit
-Client --> Unit
-SetUIState --> UnityUISystem
-
-UnitSelectCommand --> SetUIState
-UnitDeselectCommand --> SetUIState
-
-Subject --> Event
-Observer --> Event
-
-ScoreTracker --|> Observer
 
 @enduml
