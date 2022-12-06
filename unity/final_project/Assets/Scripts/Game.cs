@@ -54,7 +54,8 @@ public class Game : MonoBehaviour
                     {
                         // process turn for the player
                         StartCoroutine(human.TurnProcessor(gameBoard, civ));
-                        //human.TurnProcessor(gameBoard, civ);
+                        while (human.getTurnStatus())
+                            yield return new WaitForSeconds(0.25f);
                     }
                     else
                     {
