@@ -13,4 +13,14 @@ public class Client
     {
         gameBoard.spawnUnit(civ, type);
     }
+
+    public void moveUnit(GameBoard gameBoard, Unit fighter)
+    {
+        // TODO make do command pattern for unit movement
+        // get a list of possible tiles to move to
+        // list them somehow
+        // move to the tile the player selected
+        // if there are no possible moves, skip
+        // fighter.move();
+    }
 }

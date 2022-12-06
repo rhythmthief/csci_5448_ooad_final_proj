@@ -29,11 +29,14 @@ public class Game : MonoBehaviour
     IEnumerator GameLoop()
     {
         AI ai = new AI();
+        Human human = new Human();
         List<Civilization> civs = gameBoard.getCivilizations();
 
         while (true)
         {
             List<Civilization> civs_ = new List<Civilization>(civs);
+
+            
 
             // process turns for all civs
             foreach (Civilization civ in civs_)
@@ -50,6 +53,8 @@ public class Game : MonoBehaviour
                     if (civ.isPlayerCiv())
                     {
                         // process turn for the player
+                        StartCoroutine(human.TurnProcessor(gameBoard, civ));
+                        //human.TurnProcessor(gameBoard, civ);
                     }
                     else
                     {
@@ -57,14 +62,18 @@ public class Game : MonoBehaviour
                         ai.AITurnProcessor(gameBoard, civ);
                     }
                 }
+                
+                // wait for 1 second
+                yield return new WaitForSeconds(0.25f);
             }
 
+            
 
-
-            // wait for 1 second
-            yield return new WaitForSeconds(0.5f);
+            // TODO check for end game conditions
+                // TODO display the win or lose screen
         }
+        
+        
     }
-
 
 }
