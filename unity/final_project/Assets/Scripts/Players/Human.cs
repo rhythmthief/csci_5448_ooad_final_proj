@@ -23,6 +23,7 @@ public class Human
                 // fighter.highlight();
                 // Debug.Log("human moves units");
                 // yield return waitForKeyPress(KeyCode.Space);
+                promptMove(fighter);
             }
 
             // prompt for unit production
@@ -57,6 +58,53 @@ public class Human
             yield return null;
         }
         // now this function returns
+    }
+
+    private IEnumerator promptMove(Unit unit)
+    {
+        bool hasMoved = false;
+
+        List<Cell> neighbors = unit.getCell().getAdjacent();
+
+        while (hasMoved == false)
+        {
+            Cell destination = unit.getCell();
+
+            if(Input.GetKeyDown(KeyCode.UpArrow)) 
+            {
+                Debug.Log("Pressed Up");
+                hasMoved = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow)) 
+            {
+                Debug.Log("Pressed Right");
+                hasMoved = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow)) 
+            {
+                Debug.Log("Pressed Left");
+                hasMoved = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                Debug.Log("Pressed Down");
+                hasMoved = true;
+                // if (neighbors[3] != null && neighbors[3].isFree()) {
+                //     destination = neighbors[3];
+                //     unit.move(destination);
+                //     hasMoved = true;
+                // } else {
+                //     Debug.Log("invalid move");
+                // }
+            }
+            else if (Input.GetKeyDown(KeyCode.Return))
+            {
+                Debug.Log("Pressed Enter");
+                hasMoved = true;
+            }
+
+            yield return null;
+        }
     }
 
     public bool getTurnStatus()
