@@ -17,7 +17,7 @@
 \def \lnamea{Windham}
 \def \lnameb{Shikada}
 \def \class{CSCI 5448}
-\def \hwnum{6} % Homework number
+\def \hwnum{7} % Homework number
 \def \assgn{Project \hwnum}
 \newif\ifcode % Switch to toggle Python code insertion, see the end of the document for the value assignment
 
@@ -120,7 +120,7 @@
 %endregion
 
 \newpage
-\section*{\textbf{Status Summary}}
+\section*{\textbf{Final Project Report}}
 \subsection*{Title}
 \begin{center}
     \textit{Object Oriented Civilization Game Clone}
@@ -139,66 +139,58 @@
     \end{tabularx}
 \end{table}
 
-\subsection*{Work Done}
-\begin{itemize}
-    \item \textbf{Neill Shikada}
-          \begin{itemize}
-              \item Implemented complete AI that plays the game against other AI-controlled civilizations.
-              \item Created UI using Unity's systems.
-              \item Added audio support with royalty-free, copyright-free sound effects and music.
-          \end{itemize}
-    \item \textbf{Dennis Windham}
-          \begin{itemize}
-              \item Implemented board generation for the game.
-              \item Implemented unit, behaviors, unit types, civilization types.
-              \item Implement factories, graphics observer.
-          \end{itemize}
-\end{itemize}
+\subsection*{Final State of System Statement}
 
 
-\subsection*{Changes of Issues Encountered}
+\subsection*{Final Class Diagram and Comparison Statement} \phantom{}
 
-Unity generally advises tight coupling with their MonoBehavior base class, which is the only way to interact with the actual Unity object representations. We are avoiding MonoBehavior entirely for the underlying game logic, so we had to come up with a few workarounds when it comes to code interaction with Unity itself, e.g. a designated adapter-like helper class that does inherit from MonoBehavior. It was also initially unclear how we would facilitate graphics generation, but over a number of design iterations we decided to make use of the Observer pattern.
+% •
+%  A thorough UML class diagram representing your final set of classes and key relationships of the
+% system
+% •
+%  Highlight and document in that diagram any patterns that were included (in whole or part) in your
+% design
+% •
+%  Include the class diagram submitted in Project 5, and use it to show what changed in your system
+% from that point into the final submission
+% •
+%  Support the diagrams with a written paragraph identifying key changes in your system since your
+% design/work was submitted in Projects 5 and 6
 
-\newpage
-\subsection*{Patterns}
-\begin{itemize}
-    \item Strategy
-    \begin{itemize}
-        \item We make heavy use of the strategy pattern to dynamically assign behaviors to Unit objects.
-    \end{itemize}
 
-    \item Factory
-    \begin{itemize}
-        \item We have multiple factories in place to generate various game objects. Namely, factories create individual Civilizations, Units and all Graphics objects.
-    \end{itemize}
 
-    \item Command
-    \begin{itemize}
-        \item We are using the Command pattern to bridge UI buttons with in-game actions for the human user.
-    \end{itemize}
-
-    \item Observer
-    \begin{itemize}
-        \item The Observer pattern is being used to update the visual representation of the game board. Whenever an object with a graphical representation spawns or gets destroyed the respective graphics observer is notified and performs an update.
-    \end{itemize}
-
-    \item Singleton 
-    \begin{itemize}
-        \item Singleton is being used for the persistent game settings object passed between scenes.
-        \item GraphicsObserver is also implemented as a singleton so as to enforce its role as the only object that interacts with Unity graphics.
-    \end{itemize}
-\end{itemize}
-
-\subsection*{Class Diagram} \phantom{}
 
 See \hyperref[sec:appendixa]{Appendix A: Demonstration Class Diagram} for our class diagram.
 
+\subsection*{Third-Party code vs. Original code Statement} \phantom{}
 
-\subsection*{Plan for Next Iteration} \phantom{}
+We are using the Unity3D game engine for this project. However, we purposely limited involvement of Unity's bloated \texttt{MonoBehavior} class. It is conventional for Unity developers to have every class in the program inherit from \texttt{MonoBehavior}, but we are keeping the overwhelming majority of our code pure \texttt{C\#}, and where possible use the adapter pattern to interact with \texttt{MonoBehavior}. 
 
-We'll implement user controls, an actual turn-based system and endgame scoring. We expect to spend another 10-15 hours to complete the project.
+\subsection*{Statement on the OOAD process for your overall Semester Project} \phantom{}
+% List three key design process elements or issues (positive or negative) that your team experienced in
+% your analysis and design of the OO semester project
 
+\begin{enumerate}
+    \item[(1)] Throughout the development of the project, we held biweekly meetings lasting anywhere from 18 to 24 hours. During out meetings, we primarily discussed the state of our project, design approaches to consider moving forward and how OO patterns could solve the problems we envisioned. This level of dedication secured a robust design for our project early on and helped us stay on track during development. 
+    \item[(2)] A major part of our design process was sticking at least to the following OO principles:
+    \begin{itemize}
+        \item Program to an interface, not implementation
+        \item Encapsulate what varies
+        \item Favor composition over inheritance
+        \item Aim for loose coupling, strong cohesion
+        \item Single Responsibility Principle
+        \item Open-Closed Principle
+        \item Liskov Substitution Principle
+    \end{itemize}
+
+    Generally speaking, it worked well for us, although we cannot state with absolute certainty that none of our code violates the said principles. However, we feel that we still managed to write a rather clean and maintainable codebase. 
+    
+    \item[(3)]
+    
+    We felt that as our project grew, the readability of its UML class diagram greatly deteriorated. In fact, at one point, after an intense coding session which involved inclusion of a number of unforeseen classes, we were flabbergasted to find out that the new class diagram looked twice as convoluted as before.
+
+
+\end{enumerate}
 
 % create a new page with special dimensions, include diagram
 \newpage
