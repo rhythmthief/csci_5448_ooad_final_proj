@@ -36,7 +36,7 @@ public class Game : MonoBehaviour
         {
             List<Civilization> civs_ = new List<Civilization>(civs);
 
-            
+
 
             // process turns for all civs
             foreach (Civilization civ in civs_)
@@ -49,32 +49,39 @@ public class Game : MonoBehaviour
                 }
                 else
                 {
-                    // civ is still active and stays in the game
-                    if (civ.isPlayerCiv())
+                    if (civs.Count > 1)
                     {
-                        // process turn for the player
-                        StartCoroutine(human.TurnProcessor(gameBoard, civ));
-                        while (human.getTurnStatus())
-                            yield return new WaitForSeconds(0.25f);
+                        // civ is still active and stays in the game
+                        if (civ.isPlayerCiv())
+                        {
+                            // process turn for the player
+                            StartCoroutine(human.TurnProcessor(gameBoard, civ));
+                            while (human.getTurnStatus())
+                                yield return new WaitForSeconds(0.25f);
+                        }
+                        else
+                        {
+                            // process turn for the AI
+                            ai.AITurnProcessor(gameBoard, civ);
+                        }
                     }
-                    else
-                    {
-                        // process turn for the AI
-                        ai.AITurnProcessor(gameBoard, civ);
+                    else{
+                        break;
                     }
                 }
-                
+
                 // wait for 1 second
                 yield return new WaitForSeconds(0.25f);
             }
 
-            
 
             // TODO check for end game conditions
-                // TODO display the win or lose screen
+            // TODO display the win or lose screen
+            Debug.Log("game over");
+        
         }
-        
-        
+
+
     }
 
 }
