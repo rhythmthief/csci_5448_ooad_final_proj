@@ -7,6 +7,9 @@ public class Utils
     public static Cell[][] generateBoard(Observer graphicsObserver)
     {
         Cell[][] cells = new Cell[20][];
+        Dictionary<string, int> directionMap = new Dictionary<string, int>();
+
+
 
         // generate cells
         for (int i = 0; i < 20; i++)
@@ -29,6 +32,9 @@ public class Utils
         {
             for (int j = 0; j < 20; j++)
             {
+
+                directionMap = new Dictionary<string, int>();
+
                 //normal case
                 if (i != 0 && i != 19 && j != 0 && j != 19)
                 {
@@ -36,6 +42,12 @@ public class Utils
                     cells[i][j].addAdjacent(cells[i][j + 1]);
                     cells[i][j].addAdjacent(cells[i - 1][j]);
                     cells[i][j].addAdjacent(cells[i + 1][j]);
+
+                    // map directions to neighbor indices
+                    directionMap.Add("up", 1);
+                    directionMap.Add("down", 0);
+                    directionMap.Add("left", 2);
+                    directionMap.Add("right", 3);
                 }
                 else
                 {
@@ -46,24 +58,40 @@ public class Utils
                     {
                         cells[i][j].addAdjacent(cells[i][j + 1]);
                         cells[i][j].addAdjacent(cells[i + 1][j]);
+
+                        // map directions to neighbor indices
+                        directionMap.Add("up", 0);
+                        directionMap.Add("right", 1);
                     }
 
                     if (i == 19 && j == 0)
                     {
                         cells[i][j].addAdjacent(cells[i][j + 1]);
                         cells[i][j].addAdjacent(cells[i - 1][j]);
+
+                        // map directions to neighbor indices
+                        directionMap.Add("up", 0);
+                        directionMap.Add("left", 1);
                     }
 
                     if (i == 19 && j == 19)
                     {
                         cells[i][j].addAdjacent(cells[i][j - 1]);
                         cells[i][j].addAdjacent(cells[i - 1][j]);
+
+                        // map directions to neighbor indices
+                        directionMap.Add("down", 0);
+                        directionMap.Add("left", 1);
                     }
 
                     if (i == 0 && j == 19)
                     {
                         cells[i][j].addAdjacent(cells[i][j - 1]);
                         cells[i][j].addAdjacent(cells[i + 1][j]);
+
+                        // map directions to neighbor indices
+                        directionMap.Add("down", 0);
+                        directionMap.Add("right", 1);
                     }
 
                     // non-corner edges
@@ -72,6 +100,11 @@ public class Utils
                         cells[i][j].addAdjacent(cells[i + 1][j]);
                         cells[i][j].addAdjacent(cells[i][j - 1]);
                         cells[i][j].addAdjacent(cells[i][j + 1]);
+
+                        // map directions to neighbor indices
+                        directionMap.Add("up", 2);
+                        directionMap.Add("down", 1);
+                        directionMap.Add("right", 0);
                     }
 
                     if (i == 19 && j != 0 && j != 19)
@@ -79,6 +112,11 @@ public class Utils
                         cells[i][j].addAdjacent(cells[i - 1][j]);
                         cells[i][j].addAdjacent(cells[i][j - 1]);
                         cells[i][j].addAdjacent(cells[i][j + 1]);
+
+                        // map directions to neighbor indices
+                        directionMap.Add("up", 2);
+                        directionMap.Add("down", 1);
+                        directionMap.Add("left", 0);
                     }
 
                     if (j == 0 && i != 0 && i != 19)
@@ -86,6 +124,11 @@ public class Utils
                         cells[i][j].addAdjacent(cells[i][j + 1]);
                         cells[i][j].addAdjacent(cells[i - 1][j]);
                         cells[i][j].addAdjacent(cells[i + 1][j]);
+
+                        // map directions to neighbor indices
+                        directionMap.Add("up", 0);
+                        directionMap.Add("left", 1);
+                        directionMap.Add("right", 2);
                     }
 
                     if (j == 19 && i != 0 && i != 19)
@@ -93,8 +136,16 @@ public class Utils
                         cells[i][j].addAdjacent(cells[i][j - 1]);
                         cells[i][j].addAdjacent(cells[i - 1][j]);
                         cells[i][j].addAdjacent(cells[i + 1][j]);
+
+                        // map directions to neighbor indices
+                        directionMap.Add("down", 0);
+                        directionMap.Add("left", 1);
+                        directionMap.Add("right", 2);
                     }
                 }
+
+
+                cells[i][j].setDirectionMap(directionMap);
             }
         }
 
@@ -133,7 +184,7 @@ public class Utils
                     if (!n.isFree())
                     {
                         // if neighbor isn't free and hasn't already been traversed, it'll be in the new traversal list
-                        
+
                         if (!notConsidered.Contains(n) && !newList.Contains(n))
                             newList.Add(n);
                     }

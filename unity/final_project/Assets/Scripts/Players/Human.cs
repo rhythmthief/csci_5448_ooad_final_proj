@@ -11,7 +11,6 @@ public class Human
     public IEnumerator TurnProcessor(GameBoard gameBoard, Civilization civ)
     {
         isTurn = true;
-        hasSpawned = false;
         List<Unit> fighters = new List<Unit>(civ.getFighters());
 
         while (isTurn)
@@ -24,78 +23,44 @@ public class Human
 
                 // notify the observer about unit selection
 
-                fighter.notifyObservers(new Event(3, fighter.getCell().getCoordinates(), fighter.getCell().getCoordinates(), new string[2]{"fighter", fighter.getUnitType()}, fighter.getCiv().getColor()));
+                fighter.notifyObservers(new Event(3, fighter.getCell().getCoordinates(), fighter.getCell().getCoordinates(), new string[2] { "fighter", fighter.getUnitType() }, fighter.getCiv().getColor()));
 
                 yield return promptMove(fighter);
 
-                fighter.notifyObservers(new Event(4, fighter.getCell().getCoordinates(), fighter.getCell().getCoordinates(), new string[2]{"fighter", fighter.getUnitType()}, fighter.getCiv().getColor()));
+                fighter.notifyObservers(new Event(4, fighter.getCell().getCoordinates(), fighter.getCell().getCoordinates(), new string[2] { "fighter", fighter.getUnitType() }, fighter.getCiv().getColor()));
             }
 
             // Run the human's spawning portion of their turn
-            // TODO reference client to produce units
-            if (hasSpawned == false)
-            {
-                Debug.Log("human spawns units");
-                yield return waitForKeyPress(KeyCode.Space);
-                hasSpawned = true;
-                isTurn = false;
-            }
+            Debug.Log("human spawns units");
+
+            yield return promptSpawn(gameBoard, civ);
+            isTurn = false;
 
             yield return null;
         }
-    }
-
-    private IEnumerator waitForKeyPress(KeyCode key)
-    {
-        bool done = false;
-        while (!done) // essentially a "while true", but with a bool to break out naturally
-        {
-            if (Input.GetKeyDown(key))
-            {
-                done = true; // breaks the loop
-            }
-            // yield return null; // wait until next frame, then continue execution from here (loop continues)
-            yield return null;
-        }
-        // now this function returns
     }
 
     private IEnumerator promptMove(Unit unit)
     {
         bool hasMoved = false;
 
-        List<Cell> neighbors = unit.getCell().getAdjacent();
-
         while (!hasMoved)
         {
-            Cell destination = unit.getCell();
-
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                Debug.Log("Pressed Up");
-                hasMoved = true;
+                hasMoved = attemptDirectionalAction(unit, "up");
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                Debug.Log("Pressed Right");
-                hasMoved = true;
+                hasMoved = attemptDirectionalAction(unit, "right");
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                Debug.Log("Pressed Left");
-                hasMoved = true;
+                hasMoved = attemptDirectionalAction(unit, "left");
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                Debug.Log("Pressed Down");
-                hasMoved = true;
-                // if (neighbors[3] != null && neighbors[3].isFree()) {
-                //     destination = neighbors[3];
-                //     unit.move(destination);
-                //     hasMoved = true;
-                // } else {
-                //     Debug.Log("invalid move");
-                // }
+                hasMoved = attemptDirectionalAction(unit, "down");
             }
             else if (Input.GetKeyDown(KeyCode.Return))
             {
@@ -107,8 +72,76 @@ public class Human
         }
     }
 
+    private IEnumerator promptSpawn(GameBoard gameBoard, Civilization civ)
+    {
+        bool hasSpawned = false;
+
+        if (civ.canProduceUnit())
+            while (!hasSpawned)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1))
+                {
+                    gameBoard.spawnUnit(civ, "melee");
+                    hasSpawned = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha2))
+                {
+                    gameBoard.spawnUnit(civ, "ranged");
+                    hasSpawned = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+                    gameBoard.spawnUnit(civ, "airborne");
+                    hasSpawned = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    hasSpawned = true;
+                }
+                yield return null;
+            }
+    }
+
     public bool getTurnStatus()
     {
         return isTurn;
+    }
+
+
+    private bool attemptDirectionalAction(Unit unit, string direction)
+    {
+        Dictionary<string, int> directionMap = unit.getCell().getDirectionMap();
+        Cell destination = null;
+        bool hasMoved = false;
+
+        // check if the cell has something in the specified direction
+        if (directionMap.ContainsKey(direction))
+        {
+
+            // retrieve destination cell
+            destination = unit.getCell().getAdjacent()[directionMap[direction]];
+
+            // if the cell is empty, move into it
+            if (destination.isFree())
+            {
+                unit.move(destination);
+                hasMoved = true;
+            }
+            else
+            {
+                // get the unit that's in the destination cell
+                Unit destinationUnit = destination.getUnit();
+
+                // if the cell contains a non-enemy unit, do nothing
+                if (unit.getCiv() != destinationUnit.getCiv())
+                {
+                    // if the cell contains an enemy, fight
+                    unit.attack(destinationUnit);
+                    hasMoved = true;
+                }
+            }
+        }
+
+        return hasMoved;
     }
 }

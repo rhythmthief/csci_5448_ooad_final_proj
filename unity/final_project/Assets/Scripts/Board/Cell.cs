@@ -7,6 +7,7 @@ public class Cell : Subject
     int[] coords; //[x, y, z] coordinates in the world
     Unit unit = null;
     List<Cell> adjacent;
+    Dictionary<string, int> directionMap = new Dictionary<string, int>(); 
 
     /// <summary>
     /// Default cell constructor
@@ -60,4 +61,8 @@ public class Cell : Subject
     public void setUnit(Unit unit_) => unit = unit_; 
 
     public Unit getUnit() => unit;
+
+    public void setDirectionMap(Dictionary<string, int> directionMap_) => directionMap = directionMap_;
+    public Dictionary<string, int> getDirectionMap() => directionMap;
+
 }

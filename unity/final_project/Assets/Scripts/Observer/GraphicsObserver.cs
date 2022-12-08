@@ -96,10 +96,12 @@ public class GraphicsObserver : Observer
     // locate a unit on the board and change its color
     void setUnitSelectedMaterialColor(string objName, Color color_)
     {
-        GameObject obj = graphicsFactory.transform.Find(objName).gameObject; // find the old object
-        obj.GetComponent<Renderer>().material.SetColor("_Color", color_);
-    }
+        Transform objTransform = graphicsFactory.transform.Find(objName); // find the old object
 
+        // obj can be null if the selected unit got killed in combat and we are trying to deselect
+        if (objTransform != null)
+             objTransform.gameObject.GetComponent<Renderer>().material.SetColor("_Color", color_);
+    }
 
     void removeOldObject(string oldName)
     {
