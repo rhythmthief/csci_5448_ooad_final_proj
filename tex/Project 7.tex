@@ -139,24 +139,27 @@
     \end{tabularx}
 \end{table}
 
-\subsection*{Final State of System Statement}
+\subsection*{Final State of System Statement} \phantom{}
+
 We were able to implement most of the proposed functionality.
 \begin{itemize}
     \item There is a complete board with 3D models.
     \item There are four distinct players on the game board, three being AI-controlled and one human-controlled.
     \item The AI makes decisions on its own regarding how to spawn and move units.
     \item The player can move units with arrow keys and spawn with number keys.
+    \item Player-controlled units correctly detect cells they can't move into, attack selected targets or move into free cells.
+    \item The player can spawn units with number keys ($1,2,3$).
 \end{itemize}
-
-
 
 What wasn't implemented implemented:
 \begin{itemize}
-    \item 
+    \item We wanted to give the project more visual fidelity, but had to cut down on this aspect due to time constraints.
+    \item We wanted to implement end-game statistics, but couldn't find time for it due to a heavy workload in other classes.
 \end{itemize}
 
+Project 5 was a design submission, and our goals or design elements did not really change. Project 6 was almost a complete submission of the project, and since then we dialed in some AI elements and added human controls. However, due to time constraints, we also had to deprecate UI buttons for now -- they were supposed to be implemented with the command pattern, which has some of the necessary code already in place.
 
-
+\newpage
 \subsection*{Final Class Diagram and Comparison Statement} \phantom{}
 
 % •
@@ -176,6 +179,9 @@ What wasn't implemented implemented:
 
 
 See \hyperref[sec:appendixa]{Appendix A: Demonstration Class Diagram} for our class diagram.
+
+The most notable difference between this new class diagram and the one from Project 6 is the addition of the Players package, which includes logic for the human players. We intended for it to be command-pattern-like on the inside, but didn't have time to break out relevant functionalities into other classes so as to adhere to the design pattern.
+
 
 \subsection*{Third-Party code vs. Original code Statement} \phantom{}
 
