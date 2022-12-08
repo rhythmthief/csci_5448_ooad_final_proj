@@ -16,19 +16,18 @@ public class Human
 
         while (isTurn)
         {
-            // prompt for move
+            // Run the human's move portion of their turn
+            // Possible clicks: up, down, right, left, enter (to skip move)
             foreach (Unit fighter in fighters)
             {
+                Debug.Log("human moves units");
                 // TODO add UI for highlighting fighters
                 // fighter.highlight();
-                // Debug.Log("human moves units");
-                // yield return waitForKeyPress(KeyCode.Space);
-                promptMove(fighter);
+                yield return promptMove(fighter);
             }
-
-            // prompt for unit production
-            // TODO reference client to produce units
             
+            // Run the human's spawning portion of their turn
+            // TODO reference client to produce units
             if (hasSpawned == false) 
             {
                 Debug.Log("human spawns units");
@@ -36,13 +35,9 @@ public class Human
                 hasSpawned = true;
                 isTurn = false;
             }
-            
-            // fuck it button
 
             yield return null;
         }
-        
-        
     }
 
     private IEnumerator waitForKeyPress(KeyCode key)
@@ -66,7 +61,7 @@ public class Human
 
         List<Cell> neighbors = unit.getCell().getAdjacent();
 
-        while (hasMoved == false)
+        while (!hasMoved)
         {
             Cell destination = unit.getCell();
 

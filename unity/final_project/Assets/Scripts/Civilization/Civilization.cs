@@ -67,4 +67,9 @@ public abstract class Civilization
             fighter.reduceHP(1000);
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name=""></param>
 }
