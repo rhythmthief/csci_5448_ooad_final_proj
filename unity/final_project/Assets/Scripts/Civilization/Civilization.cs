@@ -10,7 +10,7 @@ public abstract class Civilization
     protected List<Unit> fighters = new List<Unit>();
     protected bool playerCiv = false;
     protected Color civColor;
-    protected int currentCooldown;
+    protected int currentCooldown = 0;
 
 
     /// <summary>
@@ -58,6 +58,16 @@ public abstract class Civilization
     public Color getColor() => civColor;
     public void removeCity() => city = null;
     
+    public bool canProduceUnit() {
+        if (currentCooldown == 0) {
+            currentCooldown = productionCooldown;
+            return true;
+        } else {
+            currentCooldown--;
+            return false;
+        }
+    }
+
     public void defeat() {
        List<Unit> fighters_ = new List<Unit>(fighters);
 

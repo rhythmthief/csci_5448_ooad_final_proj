@@ -27,9 +27,9 @@ public class AI
             case 2: unitType = "airborne"; break;
         }
 
-        gameBoard.spawnUnit(civ, unitType);
+        if (civ.canProduceUnit())
+            gameBoard.spawnUnit(civ, unitType);
     }
-
 
     /// <summary>
     /// Perform a greedy move with a fighter unit

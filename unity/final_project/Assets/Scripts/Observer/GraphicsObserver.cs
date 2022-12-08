@@ -80,7 +80,24 @@ public class GraphicsObserver : Observer
                 // delete old corresponding graphical object
                 removeOldObject(e.getMessage()[1] + "_" + string.Join("-", e.getCoords1()));
                 break;
+
+            case 3:
+                // unit has been selected, update its material
+                setUnitSelectedMaterialColor(e.getMessage()[1] + "_" + string.Join("-", e.getCoords1()), Color.yellow);
+                break;
+
+            case 4:
+                // unit has been deselected
+                setUnitSelectedMaterialColor(e.getMessage()[1] + "_" + string.Join("-", e.getCoords1()), e.getColor());
+                break;
         }
+    }
+
+    // locate a unit on the board and change its color
+    void setUnitSelectedMaterialColor(string objName, Color color_)
+    {
+        GameObject obj = graphicsFactory.transform.Find(objName).gameObject; // find the old object
+        obj.GetComponent<Renderer>().material.SetColor("_Color", color_);
     }
 
 

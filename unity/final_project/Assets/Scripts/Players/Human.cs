@@ -21,14 +21,19 @@ public class Human
             foreach (Unit fighter in fighters)
             {
                 Debug.Log("human moves units");
-                // TODO add UI for highlighting fighters
-                // fighter.highlight();
+
+                // notify the observer about unit selection
+
+                fighter.notifyObservers(new Event(3, fighter.getCell().getCoordinates(), fighter.getCell().getCoordinates(), new string[2]{"fighter", fighter.getUnitType()}, fighter.getCiv().getColor()));
+
                 yield return promptMove(fighter);
+
+                fighter.notifyObservers(new Event(4, fighter.getCell().getCoordinates(), fighter.getCell().getCoordinates(), new string[2]{"fighter", fighter.getUnitType()}, fighter.getCiv().getColor()));
             }
-            
+
             // Run the human's spawning portion of their turn
             // TODO reference client to produce units
-            if (hasSpawned == false) 
+            if (hasSpawned == false)
             {
                 Debug.Log("human spawns units");
                 yield return waitForKeyPress(KeyCode.Space);
@@ -43,9 +48,9 @@ public class Human
     private IEnumerator waitForKeyPress(KeyCode key)
     {
         bool done = false;
-        while(!done) // essentially a "while true", but with a bool to break out naturally
+        while (!done) // essentially a "while true", but with a bool to break out naturally
         {
-            if(Input.GetKeyDown(key))
+            if (Input.GetKeyDown(key))
             {
                 done = true; // breaks the loop
             }
@@ -65,17 +70,17 @@ public class Human
         {
             Cell destination = unit.getCell();
 
-            if(Input.GetKeyDown(KeyCode.UpArrow)) 
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 Debug.Log("Pressed Up");
                 hasMoved = true;
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow)) 
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 Debug.Log("Pressed Right");
                 hasMoved = true;
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow)) 
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 Debug.Log("Pressed Left");
                 hasMoved = true;
